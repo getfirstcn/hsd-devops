@@ -1,0 +1,13 @@
+<app-header (makeopend)="make($event)"  [agreed]="one" [disagreed]="oue">
+</app-header>
+<mat-sidenav-container class="container">
+  <mat-sidenav #MatSidenav mode="side" opened="true" class="sidenav">
+    <app-sidenav-list></app-sidenav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+<mat-toolbar class="footer">
+  <button mat-button (click)="MatSidenav.toggle()" >打开</button>
+</mat-toolbar>

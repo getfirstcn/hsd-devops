@@ -1,0 +1,13 @@
+<mat-toolbar class="header">
+    <button mat-button [matMenuTriggerFor]="appMenu" ><mat-icon>menu</mat-icon>菜单</button>
+    <mat-menu #appMenu="matMenu">
+        <button (click)="makeopen(true)" mat-menu-item><mat-icon>dialpad</mat-icon>Settings</button>
+        <button (click)="makeopen(false)" mat-menu-item><mat-icon>dialpad</mat-icon>Help</button>
+    </mat-menu>
+  <a mat-list-item
+     [routerLink]="[home]"
+     [routerLinkActive]="['active']"
+     [routerLinkActiveOptions]="{exact:true}">
+    合时代运维
+  </a>
+  </mat-toolbar>

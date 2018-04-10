@@ -1,0 +1,58 @@
+<mat-card class="deployment-detail-card">
+  <mat-card-header>
+    <div mat-card-avatar class="deployment-detail-header-image"></div>
+    <mat-card-title><h3>服务</h3></mat-card-title>
+  </mat-card-header>
+  <mat-divider></mat-divider>
+  <mat-card-content *ngIf="service">
+    <mat-list role="list">
+      <mat-list-item>
+        <div>
+          <span>名称：</span><span>{{ service.metadata.name }}</span>
+        </div>
+      </mat-list-item>
+      <mat-list-item>
+        <div>
+          <span>命名空间：</span><span>{{ service.metadata.namespace }}</span>
+        </div>
+      </mat-list-item>
+      <mat-list-item role="listitem">
+        <div>
+          <span>标签：</span><span>{{ service.metadata.labels | kv }}</span>
+        </div>
+      </mat-list-item>
+      <mat-list-item role="listitem">
+        <div>
+          <span>创建时间：</span><span>{{ service.metadata.creationTimestamp | date: 'yyyy-MM-dd HH:mm:ss' }}</span>
+        </div>
+      </mat-list-item>
+      <mat-list-item role="listitem">
+        <div>
+          <span>类型：</span><span>{{ service.spec.type }}</span>
+        </div>
+      </mat-list-item>
+      <mat-list-item role="listitem">
+        <div>
+          <span>容器选择器：</span><span>{{ service.spec.selector | kv  }}</span>
+        </div>
+      </mat-list-item>
+      <mat-list-item role="listitem">
+        <div>
+          <span>集群IP：</span><span>{{ service.spec.clusterIP }}</span>
+        </div>
+      </mat-list-item>
+      <mat-list-item role="listitem">
+        <div>
+          <span>端口：</span><span *ngFor=" let port of service.spec.ports; let i=index"> <span>服务端口:</span>{{ port.port }}
+          <span>目标端口:{{ port.targetPort }}</span>
+          <span *ngIf="port.nodePort">节点端口端口:{{ port.nodePort }}</span>
+          <span>协议:{{ port.protocol }}</span>
+        </span>
+        </div>
+      </mat-list-item>
+    </mat-list>
+  </mat-card-content>
+</mat-card>
+<mat-divider></mat-divider>
+
+<app-pod-with-label [label]="service.metadata.labels | label" [namespace]="service.metadata.namespace"></app-pod-with-label>

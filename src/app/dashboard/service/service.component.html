@@ -1,0 +1,54 @@
+<mat-divider [inset]="true"></mat-divider>
+<mat-card class="example-container mat-elevation-z8">
+  <h3>服务</h3>
+  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+  <mat-table #table [dataSource]="dataSource">
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef> 名称 </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+       <a href="/dashbaord/service?name={{element.metadata.name}}&namespace={{element.metadata.namespace}}">{{element.metadata.name}}</a>
+      </mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="label">
+      <mat-header-cell *matHeaderCellDef> 标签 </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.metadata.labels | kv}} </mat-cell>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="clusterIP">
+      <mat-header-cell *matHeaderCellDef> 集群IP </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.spec.clusterIP}} </mat-cell>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="internalEndpoint">
+      <mat-header-cell *matHeaderCellDef> 内部端点 </mat-header-cell>
+      <mat-cell *matCellDef="let element"> <span *ngFor="let port of element.spec.ports">{{element.metadata.name}}:{{port.targetPort}}</span></mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="externalEndpoint">
+      <mat-header-cell *matHeaderCellDef> 外部端点 </mat-header-cell>
+      <mat-cell *matCellDef="let element"><span *ngFor="let port of element.spec.ports">{{element.spec.clusterIP}}: {{port.port}}</span></mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="createDate">
+      <mat-header-cell *matHeaderCellDef> 创建时间 </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.metadata.creationTimestamp | date: 'yyyy-MM-dd HH:mm:ss'}} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+  <mat-paginator #paginator
+                 [pageSize]="10"
+                 [pageSizeOptions]="[5, 10, 20]"
+                 [showFirstLastButtons]="true">
+  </mat-paginator>
+</mat-card>

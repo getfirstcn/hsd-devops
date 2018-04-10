@@ -1,0 +1,142 @@
+<mat-card class="deployment-detail-card">
+  <mat-card-header>
+    <div mat-card-avatar class="deployment-detail-header-image"></div>
+    <mat-card-title><h3>容器组</h3></mat-card-title>
+  </mat-card-header>
+  <mat-divider></mat-divider>
+  <mat-card-content *ngIf="pod">
+    <mat-list role="list">
+      <mat-list-item>
+        <div>
+          <span>名称：</span><span>{{ pod.metadata.name }}</span>
+        </div>
+      </mat-list-item>
+      <mat-list-item>
+        <div>
+          <span>命名空间：</span><span>{{ pod.metadata.namespace }}</span>
+        </div>
+      </mat-list-item>
+      <mat-list-item role="listitem">
+        <div>
+          <span>标签：</span><span>{{ pod.metadata.labels | kv }}</span>
+        </div>
+      </mat-list-item>
+      <mat-list-item role="listitem">
+        <div>
+          <span>创建时间：</span><span>{{ pod.metadata.creationTimestamp | date: 'yyyy-MM-dd HH:mm:ss' }}</span>
+        </div>
+      </mat-list-item>
+      <mat-list-item role="listitem">
+        <div>
+          <span>状态：</span><span>{{ pod.status.phase }}</span>
+        </div>
+      </mat-list-item>
+      <mat-list-item role="listitem">
+        <div>
+          <span>主机IP：</span><span>{{ pod.status.hostIP }}</span>
+        </div>
+      </mat-list-item>
+      <mat-list-item role="listitem">
+        <div>
+          <span>容器IP：</span><span>{{ pod.status.podIP }}</span>
+        </div>
+      </mat-list-item>
+    </mat-list>
+  </mat-card-content>
+</mat-card>
+<mat-divider></mat-divider>
+
+<mat-card class="deployment-detail-card">
+  <mat-card-header>
+    <div mat-card-avatar class="deployment-detail-header-image"></div>
+    <mat-card-title><h3>容器</h3></mat-card-title>
+  </mat-card-header>
+  <mat-divider></mat-divider>
+  <mat-card-content *ngIf="pod">
+    <mat-list role="list" *ngFor="let container of pod.spec.containers ; let i=index;" >
+      <mat-list-item>
+        <div>
+          <b>容器{{i + 1}}：</b><span>{{ container.name }}</span>
+        </div>
+      </mat-list-item>
+      <mat-list-item>
+        <div>
+          <span>镜像：</span><span>{{ container.image }}</span>
+        </div>
+      </mat-list-item>
+      <mat-list-item>
+        <div>
+          <span>命令：</span> <span *ngFor="let c of container.command">{{c}}&nbsp;&nbsp;</span>
+        </div>
+      </mat-list-item>
+      <mat-list-item>
+        <div>
+          <span *ngFor="let port of container.ports">主机端口：{{ port.hostPort }} ，容器端口：{{ port.containerPort }}，  协议：{{ port.protocol }}</span>
+        </div>
+      </mat-list-item>
+    </mat-list>
+  </mat-card-content>
+</mat-card>
+
+<mat-divider></mat-divider>
+
+<mat-card class="deployment-detail-card">
+  <mat-card-header>
+    <div mat-card-avatar class="deployment-detail-header-image"></div>
+    <mat-card-title><h3>容器组</h3></mat-card-title>
+  </mat-card-header>
+  <mat-divider></mat-divider>
+  <mat-card-content>
+    <mat-table #table [dataSource]="dataSource">
+
+      <!--- Note that these columns can be defined in any order.
+            The actual rendered columns are set as a property on the row definition" -->
+
+      <!-- Position Column -->
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef>名称</mat-header-cell>
+        <mat-cell *matCellDef="let column">
+          <a routerLink="/dashboard/pod">
+            {{ column.metadata.name }}
+          </a>
+        </mat-cell>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="namespace">
+        <mat-header-cell *matHeaderCellDef> 命名空间 </mat-header-cell>
+        <mat-cell *matCellDef="let column"> {{column.metadata.namespace}} </mat-cell>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="label">
+        <mat-header-cell *matHeaderCellDef> 标签 </mat-header-cell>
+        <mat-cell *matCellDef="let column">{{column.metadata.labels | kv}}</mat-cell>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="pods">
+        <mat-header-cell *matHeaderCellDef> 容器 </mat-header-cell>
+        <mat-cell *matCellDef="let column"><span *ngFor="let container of column.spec.containers">{{container.name}}</span></mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="image">
+        <mat-header-cell *matHeaderCellDef> 镜像 </mat-header-cell>
+        <mat-cell *matCellDef="let column"><span *ngFor="let container of column.spec.containers">{{container.image}}</span> </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="createDate">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> 创建时间 </mat-header-cell>
+        <mat-cell *matCellDef="let column">
+          <span>{{column.metadata.creationTimestamp | date: 'yyyy-MM-dd HH:mm:ss'}}</span>
+          <button class="deployment-icon-btn"><mat-icon aria-hidden="true">subject</mat-icon></button>
+          <button class="deployment-icon-btn"><mat-icon aria-hidden="true">more_vert</mat-icon></button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let column; columns: displayedColumns;"></mat-row>
+    </mat-table>
+
+  </mat-card-content>
+</mat-card>

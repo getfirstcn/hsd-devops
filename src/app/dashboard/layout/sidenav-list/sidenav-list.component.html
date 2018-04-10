@@ -1,0 +1,40 @@
+<mat-nav-list role="navigation">
+  <h3 mat-subheader>集群</h3>
+  <mat-list-item *ngFor="let item of cluster">
+    <a mat-list-item
+       [routerLink]="item.route"
+       [routerLinkActive]="['active']"
+       [routerLinkActiveOptions]="{exact:true}">
+    <mat-icon mat-list-icon>folder</mat-icon>
+    <h4 mat-line>{{item.name}}</h4>
+    </a>
+  </mat-list-item>
+  <h3 mat-subheader>工作</h3>
+  <mat-list-item *ngFor="let item of workers">
+    <a mat-list-item
+      [routerLink]="item.route"
+      [routerLinkActive]="['active']"
+      [routerLinkActiveOptions]="{exact:true}">
+    <mat-icon mat-list-icon>folder</mat-icon>
+    <h4 mat-line>{{item.name}}</h4>
+    </a>
+  </mat-list-item>
+  <mat-divider></mat-divider>
+  <h3 mat-subheader>服务与网关</h3>
+  <mat-list-item *ngFor="let item of services">
+    <a mat-list-item
+       [routerLink]="item.route"
+       [routerLinkActive]="['active']"
+       [routerLinkActiveOptions]="{exact:true}">
+    <mat-icon mat-list-icon>note</mat-icon>
+    <h4 mat-line>{{item.name}}</h4>
+    </a>
+  </mat-list-item>
+  <h3 mat-subheader>配置与秘密</h3>
+  <mat-list-item *ngFor="let item of secrets">
+    <mat-icon mat-list-icon>note</mat-icon>
+    <a mat-list-item>
+    <h4 mat-line>{{item.name}}</h4>
+    </a>
+  </mat-list-item>
+</mat-nav-list>

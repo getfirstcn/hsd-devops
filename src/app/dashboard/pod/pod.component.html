@@ -1,0 +1,61 @@
+<mat-card class="example-container mat-elevation-z8">
+  <mat-card-title>容器组</mat-card-title>
+  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+  <mat-card-content>
+    <mat-table #table [dataSource]="dataSource">
+
+      <!--- Note that these columns can be defined in any order.
+            The actual rendered columns are set as a property on the row definition" -->
+
+      <!-- Position Column -->
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef> 名称 </mat-header-cell>
+        <mat-cell *matCellDef="let column">
+          <a href="/dashboard/pod?name={{ column.metadata.name }}&namespace={{ column.metadata.namespace }}"> {{ column.metadata.name }} </a>
+        </mat-cell>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="namespace">
+        <mat-header-cell *matHeaderCellDef> 命名空间 </mat-header-cell>
+        <mat-cell *matCellDef="let column"> {{column.metadata.namespace}} </mat-cell>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="label">
+        <mat-header-cell *matHeaderCellDef> 标签 </mat-header-cell>
+        <mat-cell *matCellDef="let column">{{column.metadata.labels | kv}}</mat-cell>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="pods">
+        <mat-header-cell *matHeaderCellDef> 容器组 </mat-header-cell>
+        <mat-cell *matCellDef="let column"><span *ngFor="let container of column.spec.containers">{{container.name}}</span></mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="image">
+        <mat-header-cell *matHeaderCellDef> 镜像 </mat-header-cell>
+        <mat-cell *matCellDef="let column"><span *ngFor="let container of column.spec.containers">{{container.image}}</span> </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="createDate">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> 创建时间 </mat-header-cell>
+        <mat-cell *matCellDef="let column">
+          <span>{{column.metadata.creationTimestamp | date: 'yyyy-MM-dd HH:mm:ss'}}</span>
+          <button class="deployment-icon-btn"><mat-icon aria-hidden="true">subject</mat-icon></button>
+          <button class="deployment-icon-btn"><mat-icon aria-hidden="true">more_vert</mat-icon></button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let column; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </mat-card-content>
+  <mat-card-footer>
+    <mat-paginator #paginator
+                   [pageSize]="10"
+                   [pageSizeOptions]="[5, 10, 20]"
+                   [showFirstLastButtons]="true">
+    </mat-paginator>
+  </mat-card-footer>
+</mat-card>
