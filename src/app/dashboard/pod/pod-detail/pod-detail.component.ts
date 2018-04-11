@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Pod} from '../pod';
 import {PodService} from '../pod.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-pod-detail',
@@ -9,17 +10,20 @@ import {PodService} from '../pod.service';
   providers: [PodService]
 })
 export class PodDetailComponent implements OnInit {
-  displayedColumns = ['name', 'namespace', 'label', 'pods', 'image', 'createDate'];
-  namespace = 'default';
-  name = 'hsd-dashboard-6df46dbd98-7jqn7';
+  namespace: string;
+  name: string;
   pod: Pod;
-  dataSource: any;
 
-  constructor(private podService: PodService) { }
+  constructor(
+    private podService: PodService,
+    private route: ActivatedRoute
+    ) { }
 
   ngOnInit() {
+    this.name = this.route.snapshot.paramMap.get('name');
+    this.namespace = this.route.snapshot.paramMap.get('namespace');
     this.podService.getpod(this.namespace, this.name)
-      .subscribe(pod => {this.pod = pod; this.dataSource = [pod]; console.log(pod); } );
+      .subscribe(pod => {this.pod = pod; console.log(pod); } );
   }
 
 }

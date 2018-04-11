@@ -11,7 +11,7 @@
       <ng-container matColumnDef="name">
         <mat-header-cell *matHeaderCellDef> 名称 </mat-header-cell>
         <mat-cell *matCellDef="let column">
-         <a href="/dashboard/deployment?name={{ column.metadata.name }}&namespace={{ column.metadata.namespace }}"> {{ column.metadata.name }} </a>
+         <a [routerLink]="['../deployment',column.metadata.namespace,column.metadata.name]"> {{ column.metadata.name }} </a>
         </mat-cell>
       </ng-container>
 

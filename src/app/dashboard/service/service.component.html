@@ -11,7 +11,7 @@
     <ng-container matColumnDef="name">
       <mat-header-cell *matHeaderCellDef> 名称 </mat-header-cell>
       <mat-cell *matCellDef="let element">
-       <a href="/dashbaord/service?name={{element.metadata.name}}&namespace={{element.metadata.namespace}}">{{element.metadata.name}}</a>
+       <a [routerLink]="['../service', element.metadata.namespace, element.metadata.name]">{{element.metadata.name}}</a>
       </mat-cell>
     </ng-container>
 

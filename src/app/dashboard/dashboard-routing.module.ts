@@ -17,13 +17,14 @@ const routes: Routes = [
   children: [
   {path: '', component: OverviewComponent},
   {path: 'pods', component: PodComponent},
-  {path: 'pod', component: PodDetailComponent},
+  {path: 'pod/:namespace/:name', component: PodDetailComponent},
   {path: 'deployments', component: DeploymentComponent},
-  {path: 'deployment', component: DeploymentDetailComponent},
+  {path: 'deployment/:namespace/:name', component: DeploymentDetailComponent},
   {path: 'services', component: ServiceComponent},
-  {path: 'service', component: ServiceDetailComponent},
+  {path: 'service/:namespace/:name', component: ServiceDetailComponent},
   {path: 'monitor', component: MonitorModule},
-  {path: 'cluster', component: ClusterComponent}
+  {path: 'cluster', component: ClusterComponent},
+  {path: '**', component: OverviewComponent}
   ]
 }
 ];
