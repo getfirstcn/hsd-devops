@@ -11,12 +11,11 @@ export class HeaderComponent implements OnInit {
   @Input() agreed: string;
   @Input() disagreed: string;
   @Output() makeopend = new EventEmitter<boolean>();
+  @Output() createAplication = new EventEmitter(true);
   home = '/dashboard';
   makeopen (agreed: boolean) {
     this.makeopend.emit(agreed);
   }
-
-
   ngOnInit() {
   }
 

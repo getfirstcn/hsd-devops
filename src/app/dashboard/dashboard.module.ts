@@ -7,6 +7,7 @@ import { LayoutComponent } from './layout/layout.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { SidenavListComponent } from './layout/sidenav-list/sidenav-list.component';
 import {HttpClientModule} from '@angular/common/http';
+import {ReactiveFormsModule} from '@angular/forms';
 
 import { ClusterComponent } from './cluster/cluster.component';
 import {DeploymentComponent} from './deployment/deployment.component';
@@ -22,13 +23,18 @@ import { LabelPipe } from './pipes/label.pipe';
 
  // service
 import {PodService} from './pod/pod.service';
+import { ApplicationComponent } from './application/application.component';
+import { ApplicationButtonComponent } from './application/application-button/application-button.component';
+import { ApplicationDialogComponent } from './application/application-dialog/application-dialog.component';
+import { ApplicationStepperComponent } from './application/application-stepper/application-stepper.component';
 
 @NgModule({
   imports: [
     CommonModule,
     DashboardRoutingModule,
     MaterialModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   declarations: [
     ClusterComponent,
@@ -45,7 +51,12 @@ import {PodService} from './pod/pod.service';
     ServiceDetailComponent,
     PodWithLabelComponent,
     LabelPipe,
+    ApplicationComponent,
+    ApplicationButtonComponent,
+    ApplicationDialogComponent,
+    ApplicationStepperComponent
   ],
-  providers: [PodService]
+  providers: [PodService],
+  entryComponents: [ApplicationButtonComponent, ApplicationDialogComponent]
 })
 export class DashboardModule { }

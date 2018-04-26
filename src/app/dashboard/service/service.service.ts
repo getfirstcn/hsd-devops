@@ -4,6 +4,7 @@ import {catchError, map, retry, tap} from 'rxjs/operators';
 import {Observable} from 'rxjs/Observable';
 import {of} from 'rxjs/observable/of';
 import {Service, ServiceList} from './service';
+import {V1Service, V1Status} from '../api';
 
 @Injectable()
 export class ServiceService {
@@ -20,6 +21,12 @@ export class ServiceService {
     return this.http.get<Service>('/api/v1/namespaces/' + namespace + '/services/' + name).pipe(
       catchError(this.handleError('getservice', []))
     );
+  }
+  createService(namespace: string, body: V1Service) {
+    return this.http.post<V1Service>(`/api/v1/namespaces/${namespace}/services`, body);
+  }
+  deleteService(namespace: string, name: string): Observable<V1Status> {
+    return this.http.delete<V1Status>(`/api/v1/namespaces/${namespace}/services/${name}`);
   }
 
   private handleError<T> (operation = 'operation', result?: T) {

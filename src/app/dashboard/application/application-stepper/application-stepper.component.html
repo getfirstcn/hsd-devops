@@ -1,0 +1,43 @@
+<h2>app</h2>
+<form [formGroup]="appForm">
+<mat-horizontal-stepper [linear]="isLinear" #stepper="matHorizontalStepper">
+    <mat-step>
+      <ng-template matStepLabel>模板</ng-template>
+      <div class="form-group">
+        <label class="center-block">
+          名称：
+        </label>
+        <input class="form-control" formControlName="name">
+      </div>
+      <div>
+        <button mat-button matStepperNext>下一步</button><button mat-button matStepperPrevious>上一步</button>
+      </div>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>应用</ng-template>
+      <div class="form-group">
+        <label class="center-block">
+          名称：
+        </label>
+        <input class="form-control" formControlName="name">
+      </div>
+      <div>
+        <button mat-button matStepperNext type="button">下一步</button>
+        <button mat-button matStepperPrevious type="button">上一步</button>
+      </div>
+    </mat-step>
+
+    <mat-step>
+      <ng-template matStepLabel>镜像</ng-template>
+      <div class="form-group">
+        <label class="center-block">
+          名称：
+        </label>
+        <input class="form-control" formControlName="name">
+      </div>
+      <div>
+        <button mat-button matStepperNext>下一步</button><button mat-button matStepperPrevious>上一步</button>
+      </div>
+    </mat-step>
+</mat-horizontal-stepper>
+</form>

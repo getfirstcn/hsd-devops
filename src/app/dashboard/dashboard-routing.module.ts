@@ -11,6 +11,7 @@ import {MonitorModule} from '../monitor/monitor.module';
 import {PodComponent} from './pod/pod.component';
 import {PodDetailComponent} from './pod/pod-detail/pod-detail.component';
 import {ServiceDetailComponent} from './service/service-detail/service-detail.component';
+import {ApplicationStepperComponent} from './application/application-stepper/application-stepper.component';
 
 const routes: Routes = [
   {path: '', component: LayoutComponent,
@@ -22,6 +23,7 @@ const routes: Routes = [
   {path: 'deployment/:namespace/:name', component: DeploymentDetailComponent},
   {path: 'services', component: ServiceComponent},
   {path: 'service/:namespace/:name', component: ServiceDetailComponent},
+  {path: 'application', component: ApplicationStepperComponent},
   {path: 'monitor', component: MonitorModule},
   {path: 'cluster', component: ClusterComponent},
   {path: '**', component: OverviewComponent}

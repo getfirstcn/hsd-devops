@@ -9,7 +9,7 @@
       <ng-container matColumnDef="name">
         <mat-header-cell *matHeaderCellDef>名称</mat-header-cell>
         <mat-cell *matCellDef="let column">
-          <a routerLink="/dashboard/pod">
+          <a routerLink="/dashboard/pod/{{column.metadata.namespace}}/{{column.metadata.name}}">
             {{ column.metadata.name }}
           </a>
         </mat-cell>

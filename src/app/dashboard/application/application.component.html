@@ -1,0 +1,17 @@
+<mat-horizontal-stepper [linear]="isLinear" #stepper="matHorizontalStepper">
+  <form [formGroup]="appForm">
+    <mat-step [stepControl]="appForm">
+      <div class="form-group">
+        <label class="center-block">
+          名称：
+        </label>
+        <input class="form-control" formControlName="name">
+      </div>
+      <div>
+        <button mat-button matStepperNext>下一步</button><button mat-button matStepperPrevious>上一步</button>
+      </div>
+
+    </mat-step>
+
+  </form>
+</mat-horizontal-stepper>

@@ -36,6 +36,18 @@ applyFilter(filterValue: string) {
 ngOnDestroy() {
     console.log('结束', this.TABLE);
 }
+deleteDeployment(namespace: string, name: string) {
+    console.log('namespace:', namespace, 'name:', name);
+    this.deploymentsService.deleteDeployment(namespace, name)
+      .subscribe(status => {
+        console.log(status);
+        if (status.status === 'Success') {
+          this.deploymentsService.getDeployments().subscribe(list => {this.dataSource = list;
+            console.log('重获', this.dataSource);
+          });
+        }
+      });
+}
 }
 
 export interface Element {

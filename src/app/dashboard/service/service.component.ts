@@ -1,6 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatTableDataSource} from '@angular/material';
 import {ServiceService} from './service.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-service',
@@ -13,7 +14,9 @@ export class ServiceComponent implements OnInit {
   TABLE: any;
   dataSource = new MatTableDataSource<Element>(this.TABLE);
 
-  constructor(private serviceService: ServiceService) {}
+  constructor(
+    private serviceService: ServiceService,
+    private router: Router) {}
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -30,6 +33,17 @@ export class ServiceComponent implements OnInit {
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
     this.dataSource.filter = filterValue;
+  }
+  deleteService(namespace: string, name: string) {
+    this.serviceService.deleteService(namespace, name)
+      .subscribe(status => {
+        console.log('删除服务', status);
+        if (status.status === 'Success') {
+        this.serviceService.getservices('default').subscribe(
+          list => {this.dataSource = list; console.log('get services', list); }
+        );
+        }
+      });
   }
 }
 

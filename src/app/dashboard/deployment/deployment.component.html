@@ -11,7 +11,7 @@
       <ng-container matColumnDef="name">
         <mat-header-cell *matHeaderCellDef> 名称 </mat-header-cell>
         <mat-cell *matCellDef="let column">
-         <a [routerLink]="['../deployment',column.metadata.namespace,column.metadata.name]"> {{ column.metadata.name }} </a>
+         <a [routerLink]="['/dashboard/deployment',column.metadata.namespace,column.metadata.name]"> {{ column.metadata.name }} </a>
         </mat-cell>
       </ng-container>
 
@@ -43,7 +43,23 @@
         <mat-cell *matCellDef="let column">
          <span>{{column.metadata.creationTimestamp | date: 'yyyy-MM-dd HH:mm:ss'}}</span>
          <button class="deployment-icon-btn"><mat-icon aria-hidden="true">subject</mat-icon></button>
-          <button class="deployment-icon-btn"><mat-icon aria-hidden="true">more_vert</mat-icon></button>
+          <button class="deployment-icon-btn" [matMenuTriggerFor]="deploymentDropDownMenu">
+            <mat-icon aria-hidden="true">more_vert</mat-icon>
+          </button>
+          <mat-menu #deploymentDropDownMenu="matMenu">
+            <button mat-menu-item (click)="deleteDeployment(column.metadata.namespace,column.metadata.name)">
+              <mat-icon>chevron_left</mat-icon>
+              <span>删除</span>
+            </button>
+            <button mat-menu-item>
+              <mat-icon>chevron_left</mat-icon>
+              <span>删除</span>
+            </button>
+            <button mat-menu-item>
+              <mat-icon>chevron_left</mat-icon>
+              <span>删除</span>
+            </button>
+          </mat-menu>
         </mat-cell>
       </ng-container>
 

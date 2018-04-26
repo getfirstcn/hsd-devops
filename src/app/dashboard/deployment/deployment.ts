@@ -1,13 +1,14 @@
 export class Deployment {
-  kind: string;
-  apiVersion: string;
+  kind: 'Deployment';
+  apiVersion: 'apps/v1';
   metadata: {
     name: string;
     namespace: string;
     labels: {
       [key: string]: string
-    };
-    spec: {
+    }
+  };
+  spec: {
       replicas: number,
       selector: {
         matchLabels: {
@@ -17,9 +18,7 @@ export class Deployment {
       template: {
         metadata: {
           creationTimestamp: null,
-          labels: {
-            app: string
-          }
+          labels: {}
         },
         spec: {
           containers: [
@@ -41,8 +40,7 @@ export class Deployment {
       },
       strategy: Strategy;
     };
-  };
-}
+  }
 
 export class DeploymentList {
   kind: string;
@@ -69,6 +67,7 @@ export class Container {
   name: string;
   image: string;
   ports: [Port];
+  env: [{}];
   resources: {};
   imagePullPolicy: string;
 }

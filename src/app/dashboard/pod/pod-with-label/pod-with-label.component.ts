@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {Pod} from '../pod';
-import {PodService} from '../pod.service'
+import {PodService} from '../pod.service';
 
 @Component({
   selector: 'app-pod-with-label',
