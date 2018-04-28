@@ -12,11 +12,13 @@ import {PodComponent} from './pod/pod.component';
 import {PodDetailComponent} from './pod/pod-detail/pod-detail.component';
 import {ServiceDetailComponent} from './service/service-detail/service-detail.component';
 import {ApplicationStepperComponent} from './application/application-stepper/application-stepper.component';
+import {LogComponent} from './pod/log/log.component';
 
 const routes: Routes = [
   {path: '', component: LayoutComponent,
   children: [
   {path: '', component: OverviewComponent},
+  {path: 'log/:namespace/:name', component: LogComponent},
   {path: 'pods', component: PodComponent},
   {path: 'pod/:namespace/:name', component: PodDetailComponent},
   {path: 'deployments', component: DeploymentComponent},

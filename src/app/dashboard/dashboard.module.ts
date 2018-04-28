@@ -7,7 +7,8 @@ import { LayoutComponent } from './layout/layout.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { SidenavListComponent } from './layout/sidenav-list/sidenav-list.component';
 import {HttpClientModule} from '@angular/common/http';
-import {ReactiveFormsModule} from '@angular/forms';
+import {ReactiveFormsModule, FormsModule} from '@angular/forms';
+import {MonacoEditorModule} from 'ngx-monaco-editor';
 
 import { ClusterComponent } from './cluster/cluster.component';
 import {DeploymentComponent} from './deployment/deployment.component';
@@ -27,6 +28,7 @@ import { ApplicationComponent } from './application/application.component';
 import { ApplicationButtonComponent } from './application/application-button/application-button.component';
 import { ApplicationDialogComponent } from './application/application-dialog/application-dialog.component';
 import { ApplicationStepperComponent } from './application/application-stepper/application-stepper.component';
+import { LogComponent } from './pod/log/log.component';
 
 @NgModule({
   imports: [
@@ -34,7 +36,9 @@ import { ApplicationStepperComponent } from './application/application-stepper/a
     DashboardRoutingModule,
     MaterialModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule,
+    MonacoEditorModule.forRoot()
   ],
   declarations: [
     ClusterComponent,
@@ -54,9 +58,10 @@ import { ApplicationStepperComponent } from './application/application-stepper/a
     ApplicationComponent,
     ApplicationButtonComponent,
     ApplicationDialogComponent,
-    ApplicationStepperComponent
+    ApplicationStepperComponent,
+    LogComponent
   ],
   providers: [PodService],
-  entryComponents: [ApplicationButtonComponent, ApplicationDialogComponent]
+  entryComponents: [ApplicationButtonComponent, ApplicationDialogComponent, LogComponent]
 })
 export class DashboardModule { }

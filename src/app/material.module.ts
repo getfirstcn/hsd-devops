@@ -13,7 +13,8 @@ import {
   MatPaginatorModule,
   MatFormFieldModule,
   MatCardModule,
-  MatDialogModule, MatStepperModule
+  MatDialogModule,
+  MatStepperModule,
 
 } from '@angular/material';
 
@@ -32,7 +33,7 @@ import {
     MatFormFieldModule,
     MatCardModule,
     MatDialogModule,
-    MatStepperModule
+    MatStepperModule,
   ],
   exports: [
     MatButtonModule,
@@ -47,7 +48,7 @@ import {
     MatFormFieldModule,
     MatCardModule,
     MatDialogModule,
-    MatStepperModule
+    MatStepperModule,
   ],
   declarations: []
 })

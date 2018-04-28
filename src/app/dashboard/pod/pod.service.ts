@@ -4,6 +4,7 @@ import {catchError, map, retry, tap} from 'rxjs/operators';
 import {Observable} from 'rxjs/Observable';
 import {of} from 'rxjs/observable/of';
 import {Pod, PodList} from './pod';
+import {V1Status} from '../api';
 
 @Injectable()
 export class PodService {
@@ -27,6 +28,17 @@ export class PodService {
     return this.http.get<PodList>('/api/v1/namespaces/' + namespace + '/pods', options).pipe(
       map(({items}) => items ),
       catchError(this.handleError('getpodWithLabel', []))
+      );
+  }
+  deletePod(namespace: string, name: string): Observable<V1Status> {
+    return this.http.delete<V1Status>(`/api/v1/namespaces/${namespace}/pods/${name}`);
+  }
+  getLog(namespace: string, name: string): Observable<string> {
+    return this.http.get<string>(`/api/v1/namespaces/${namespace}/pods/${name}/log?tailLines=100`)
+      .pipe(
+        tap(data => {
+          console.log('服务收到', data);
+        })
       );
   }
 
