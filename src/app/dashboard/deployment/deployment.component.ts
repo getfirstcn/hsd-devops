@@ -1,7 +1,8 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatTableDataSource} from '@angular/material';
 import {Deployment, DeploymentList} from './deployment';
 import {DeploymentsService} from './deployments.service';
+import {NamespaceService} from '../namespace/namespace.service';
 
 @Component({
   selector: 'app-deployment',
@@ -9,7 +10,7 @@ import {DeploymentsService} from './deployments.service';
   styleUrls: ['./deployment.component.scss'],
   providers: [DeploymentsService]
 })
-export class DeploymentComponent implements OnInit, OnDestroy {
+export class DeploymentComponent implements OnInit, AfterViewInit, OnDestroy {
   displayedColumns = ['name', 'namespace', 'label', 'pods', 'image', 'createDate'];
   TABLE: Element[];
   deployments: DeploymentList;
@@ -17,13 +18,14 @@ export class DeploymentComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   DataSource: any;
   dataSource = new MatTableDataSource<Element>(this.DataSource);
-  constructor(private deploymentsService: DeploymentsService) {}
+  constructor(
+    private deploymentsService: DeploymentsService,
+    private ns: NamespaceService) {}
   ngOnInit() {
-    this.deploymentsService.getDeployments().subscribe(list => {this.dataSource = list;
-      console.log('获得', this.dataSource);
-    });
+    this.initDeployment();
   }
   ngAfterViewInit() {
+    this.updateDeployment();
   this.dataSource.paginator = this.paginator;
 }
 
@@ -36,15 +38,29 @@ applyFilter(filterValue: string) {
 ngOnDestroy() {
     console.log('结束', this.TABLE);
 }
+initDeployment() {
+  this.ns.getGlobalNamespace()
+    .subscribe(namespace => {
+      this.deploymentsService.getDeployments(namespace).subscribe(list => {this.dataSource.data = list;
+        console.log('初始', this.dataSource);
+      });
+    });
+}
+updateDeployment() {
+  this.ns.namespace
+    .subscribe(namespace => {
+      this.deploymentsService.getDeployments(namespace).subscribe(list => {this.dataSource.data = list;
+        console.log('更新', this.dataSource);
+      });
+    });
+}
 deleteDeployment(namespace: string, name: string) {
     console.log('namespace:', namespace, 'name:', name);
     this.deploymentsService.deleteDeployment(namespace, name)
       .subscribe(status => {
         console.log(status);
         if (status.status === 'Success') {
-          this.deploymentsService.getDeployments().subscribe(list => {this.dataSource = list;
-            console.log('重获', this.dataSource);
-          });
+          this.initDeployment();
         }
       });
 }

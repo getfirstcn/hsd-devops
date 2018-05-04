@@ -29,11 +29,18 @@ export class DeploymentsService {
   constructor(
     private http: HttpClient,
   ) { }
-  getDeployments(): Observable<any> {
-    return this.http.get<DeploymentList>(this.path).pipe(
+  getDeployments(namespace: string): Observable<any> {
+    if (namespace === 'all') {
+      return this.http.get<DeploymentList>('/apis/apps/v1/deployments').pipe(
+        map(({items}) => items),
+        catchError(this.handleError('getdeployments', []))
+      );
+    } else {
+    return this.http.get<DeploymentList>(`/apis/apps/v1/namespaces/${namespace}/deployments`).pipe(
       map(({items}) => items),
         catchError(this.handleError('getdeployments', []))
       );
+    }
   }
 
   getDeployment(namespace: string, name: string): Observable<any> {

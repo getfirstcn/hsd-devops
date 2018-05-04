@@ -11,10 +11,17 @@ export class ServiceService {
 
   constructor(private http: HttpClient) { }
   getservices(namespace: string): Observable<any> {
+    if (namespace === 'all') {
+      return this.http.get<ServiceList>('/api/v1/services').pipe(
+        map(({items}) => items),
+        catchError(this.handleError('getservices', []))
+      );
+    } else {
     return this.http.get<ServiceList>('/api/v1/namespaces/' + namespace + '/services').pipe(
       map(({items}) => items),
       catchError(this.handleError('getservices', []))
     );
+    }
   }
 
   getservice(namespace: string, name: string): Observable<any> {

@@ -1,7 +1,8 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatTableDataSource} from '@angular/material';
 import {ServiceService} from './service.service';
 import {Router} from '@angular/router';
+import {NamespaceService} from '../namespace/namespace.service';
 
 @Component({
   selector: 'app-service',
@@ -9,24 +10,29 @@ import {Router} from '@angular/router';
   styleUrls: ['./service.component.scss'],
   providers: [ServiceService]
 })
-export class ServiceComponent implements OnInit {
-  displayedColumns = ['name', 'label', 'clusterIP', 'internalEndpoint', 'externalEndpoint', 'createDate'];
-  TABLE: any;
-  dataSource = new MatTableDataSource<Element>(this.TABLE);
+export class ServiceComponent implements OnInit, AfterViewInit {
+  displayedColumns = ['name', 'namespace', 'label', 'clusterIP', 'internalEndpoint', 'externalEndpoint', 'createDate'];
+  dataSource = new MatTableDataSource();
 
   constructor(
     private serviceService: ServiceService,
-    private router: Router) {}
+    private router: Router,
+    private ns: NamespaceService) {}
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   ngAfterViewInit() {
+    this.updateService();
     this.dataSource.paginator = this.paginator;
   }
   ngOnInit() {
-    this.serviceService.getservices('default').subscribe(
-      list => {this.dataSource = list; console.log('get services', list); }
-    );
+    this.ns.getGlobalNamespace()
+      .subscribe(namespace => {
+        console.log('init namespace', namespace);
+        this.serviceService.getservices(namespace).subscribe(
+        list => {this.dataSource.data = list; console.log('get services', list); }
+      );
+      });
   }
 
   applyFilter(filterValue: string) {
@@ -44,6 +50,13 @@ export class ServiceComponent implements OnInit {
         );
         }
       });
+  }
+  updateService() {
+    this.ns.namespace.subscribe(namespace => {
+      this.serviceService.getservices(namespace).subscribe(
+        list => {this.dataSource.data = list; console.log('update services', list); }
+      );
+    });
   }
 }
 

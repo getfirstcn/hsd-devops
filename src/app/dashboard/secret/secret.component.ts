@@ -29,10 +29,19 @@ export class SecretComponent implements OnInit, AfterViewInit {
     this.ns.getGlobalNamespace()
       .subscribe(namespace => {
         this.secretService.getSecretList(namespace)
-        .subscribe(data => this.dataSource.data = data.items);
+          .subscribe(data => this.dataSource.data = data.items);
       });
   }
+  updateScrets() {
+  this.ns.namespace
+    .subscribe(namespace => {
+  console.log('凭据收到', namespace)
+  this.secretService.getSecretList(namespace)
+.subscribe(data => this.dataSource.data = data.items);
+});
+  }
   ngAfterViewInit() {
+    this.updateScrets();
     this.dataSource.paginator = this.paginator;
   }
   applyFilter(filterValue: string) {

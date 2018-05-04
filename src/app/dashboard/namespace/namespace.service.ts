@@ -4,11 +4,13 @@ import {catchError, map, retry, tap} from 'rxjs/operators';
 import {Observable} from 'rxjs/Observable';
 import {Namespace, NamespaceList} from './namespace';
 import {of} from 'rxjs/observable/of';
+import {Subject} from 'rxjs/Subject';
 
 
 @Injectable()
 export class NamespaceService {
-  namespace = 'all';
+  globalNamespace = 'all';
+  namespace: Subject<string> = new Subject<string>();
   constructor(private http: HttpClient) { }
   getNamepaceList(): Observable<any> {
     return this.http.get<Namespace>('/api/v1/namespaces')
@@ -19,10 +21,7 @@ export class NamespaceService {
   getNamespace(name: string): Observable<Namespace> {
     return this.http.get<Namespace>(`/api/v1/namespaces/${name}`);
   }
-  setGlobalNamespace(name: string) {
-    this.namespace = name;
-  }
   getGlobalNamespace() {
-    return of(this.namespace);
+    return of(this.globalNamespace);
   }
 }

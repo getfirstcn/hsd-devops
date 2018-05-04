@@ -11,10 +11,17 @@ export class PodService {
 
   constructor(private http: HttpClient) { }
   getpods(namespace: string): Observable<any> {
-    return this.http.get<PodList>('/api/v1/namespaces/' + namespace + '/pods').pipe(
+    if (namespace === 'all') {
+      return this.http.get<PodList>('/api/v1/pods').pipe(
+        map(({items}) => items),
+        catchError(this.handleError('getpods', []))
+      );
+    } else {
+    return this.http.get<PodList>(`/api/v1/namespaces/${namespace}/pods`).pipe(
       map(({items}) => items),
       catchError(this.handleError('getpods', []))
     );
+    }
   }
 
   getpod(namespace: string, name: string): Observable<Pod> {

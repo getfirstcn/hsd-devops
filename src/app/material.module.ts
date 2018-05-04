@@ -15,6 +15,8 @@ import {
   MatCardModule,
   MatDialogModule,
   MatStepperModule,
+  MatInputModule,
+  MatSelectModule
 
 } from '@angular/material';
 
@@ -34,6 +36,8 @@ import {
     MatCardModule,
     MatDialogModule,
     MatStepperModule,
+    MatInputModule,
+    MatSelectModule
   ],
   exports: [
     MatButtonModule,
@@ -49,6 +53,8 @@ import {
     MatCardModule,
     MatDialogModule,
     MatStepperModule,
+    MatInputModule,
+    MatSelectModule
   ],
   declarations: []
 })

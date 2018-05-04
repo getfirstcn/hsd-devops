@@ -15,6 +15,11 @@
       </mat-cell>
     </ng-container>
 
+    <ng-container matColumnDef="namespace">
+      <mat-header-cell *matHeaderCellDef> 命名空间 </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.metadata.namespace}} </mat-cell>
+    </ng-container>
+
     <!-- Name Column -->
     <ng-container matColumnDef="label">
       <mat-header-cell *matHeaderCellDef> 标签 </mat-header-cell>

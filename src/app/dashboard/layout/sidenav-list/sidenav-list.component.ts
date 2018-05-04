@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import {NamespaceService} from '../../namespace/namespace.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-sidenav-list',
@@ -7,9 +8,12 @@ import {NamespaceService} from '../../namespace/namespace.service';
   styleUrls: ['./sidenav-list.component.scss'],
 
 })
-export class SidenavListComponent implements OnInit {
+export class SidenavListComponent implements OnInit, AfterViewInit {
 
-  constructor(private ns: NamespaceService) { }
+  constructor(
+    private ns: NamespaceService,
+    private router: Router
+  ) { }
   cluster = [
     {
       name: '命名空间',
@@ -81,9 +85,12 @@ export class SidenavListComponent implements OnInit {
   namespaces = ['all', 'default', 'kube-system'];
   ngOnInit() {
   }
-  setNamespace(node) {
-    this.ns.setGlobalNamespace(node);
-    console.log('节点值', node);
+  ngAfterViewInit() {
   }
-
+  setNamespace(node) {
+    this.ns.namespace.next(node);
+    this.ns.globalNamespace = node;
+    console.log('节点值', node);
+    // this.router.navigate()
+  }
 }
