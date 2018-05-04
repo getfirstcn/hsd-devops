@@ -1,30 +1,42 @@
 <h2 mat-dialog-title>创建应用</h2>
-
 <mat-horizontal-stepper #stepper="matHorizontalStepper">
   <mat-step>
-    <form [formGroup]="appForm">
+    <form class="app-form" [formGroup]="appForm" class="form-full-width">
     <ng-template matStepLabel>应用</ng-template>
       <div class="form-group">
-        <label class="cent-block">名称:
-          <input class="form-control" formControlName="name">
-        </label>
+        <div class="dialog-container">
+        <mat-form-field>
+          <input matInput formControlName="name" placeholder="名称">
+        </mat-form-field>
+        </div>
       </div>
       <div class="form-group">
-        <label class="cent-block">命名空间:
-          <input class="form-control" formControlName="namespace">
-        </label>
+        <div class="dialog-container">
+        <mat-form-field>
+          <input matInput formControlName="namespace" placeholder="命名空间">
+        </mat-form-field>
+        </div>
       </div>
       <div class="form-group">
-        <label class="cent-block">副本:
-          <input class="form-control" type="number" formControlName="replicas">
-        </label>
+        <div class="dialog-container">
+        <mat-form-field>
+          <input matInput type="number" formControlName="replicas" placeholder="副本数">
+        </mat-form-field>
+        </div>
       </div>
       <div formGroupName="labels" class="well well-lg">
         <h4>标签:</h4>
         <div class="form-group">
-          <label class="cent-block">
-            <input class="form-control" type="text" formControlName="key">：<input class="form-control" type="text" formControlName="value">
-          </label>
+          <div class="dialog-container-object">
+            <mat-form-field>
+              <input matInput type="text" formControlName="key" placeholder="名称">
+              <!--<span matSuffix>: &nbsp;</span>-->
+            </mat-form-field>&nbsp;
+          <mat-form-field>
+            <!--<span matSuffix>: &nbsp;</span>-->
+            <input matInput type="text" formControlName="value" placeholder="内容">
+          </mat-form-field>
+          </div>
         </div>
       </div>
     </form>
@@ -36,28 +48,39 @@
         <div *ngFor="let c of containers.controls; let i=index" [formGroupName]="i">
           <h4>容器 #{{i + 1}}</h4>
           <div class="form-group">
-            <label class="cent-block">名称:
-              <input class="form-control" type="text" formControlName="name">
-            </label>
+            <div class="dialog-container">
+            <mat-form-field>
+              <!--<span matSuffix>: &nbsp;</span>-->
+              <input matInput type="text" formControlName="name" placeholder="名称">
+            </mat-form-field>
+            </div>
           </div>
           <div class="form-group">
-            <label class="cent-block">镜像:
-              <input class="form-control" type="text" formControlName="image">
-            </label>
+            <div class="dialog-container">
+            <mat-form-field>
+              <!--<span matSuffix>: &nbsp;</span>-->
+              <input matInput type="text" formControlName="image" placeholder="镜像">
+            </mat-form-field>
+            </div>
           </div>
           <div class="form-group">
-            <label class="cent-block">命令:
-              <input class="form-control" type="text" formControlName="command">
-            </label>
+            <div class="dialog-container">
+            <mat-form-field>
+              <!--<span matSuffix>: &nbsp;</span>-->
+              <input matInput type="text" formControlName="command" placeholder="命令">
+            </mat-form-field>
+            </div>
           </div>
         <div class="form-group">
-          <label class="cent-block">参数:
-            <input class="form-control" type="text" formControlName="args">
-          </label>
+          <div class="dialog-container">
+          <mat-form-field>
+            <input matInput type="text" formControlName="args" placeholder="参数">
+          </mat-form-field>
+          </div>
         </div>
           <br>
       </div>
-        <button (click)="addContainer()" type="button">增加容器</button>
+        <button mat-fab color="primary" (click)="addContainer()" type="button">增加容器</button>
       </div>
     </form>
   </mat-step>
@@ -68,71 +91,86 @@
         <div *ngFor="let e of env.controls; let i=index" [formGroupName]="i">
         <h4>变量 #{{ i + 1 }}</h4>
           <div class="form-group">
-            <label class="cent-block">名:
-              <input class="form-control" type="text" formControlName="name">
-            </label>
-          </div>
-          <div class="form-group">
-            <label class="cent-block">值:
-              <input class="form-control" type="text" formControlName="value">
-            </label>
+            <div class="dialog-container-object">
+            <mat-form-field>
+              <input matInput type="text" formControlName="name" placeholder="名">
+            </mat-form-field>
+              &nbsp;
+            <mat-form-field>
+              <input matInput type="text" formControlName="value" placeholder="值">
+            </mat-form-field>
+            </div>
           </div>
         </div>
-        <button (click)="addEnv()" type="button">添加变量</button>
+        <button mat-fab color="primary" (click)="addEnv()" type="button">添加变量</button>
       </div>
     </form>
-
-
   </mat-step>
   <mat-step>
     <form [formGroup]="serviceForm">
     <ng-template matStepLabel>服务</ng-template>
       <div class="form-group">
-        <label class="cent-block">类型:
-          <select class="form-control"  formControlName="type">
-            <option *ngFor="let type of serviceTypes" [value]="type">{{type}}</option>
-          </select>
-        </label>
+        <div class="dialog-container">
+        <mat-form-field>
+          <mat-select placeholder="类型" formControlName="type">
+            <mat-option *ngFor="let type of serviceTypes" [value]="type">
+              {{type}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        </div>
       </div>
       <div formArrayName="ports">
         <div *ngFor="let p of ports.controls; let i=index;" [formGroupName]="i">
           <h4>端口 #{{ i + 1 }}</h4>
         <div class="form-group">
-          <label class="cent-block">名称:
-            <input class="form-control" type="text" formControlName="name">
-          </label>
+          <div class="dialog-container">
+          <mat-form-field>
+            <input matInput type="text" formControlName="name" placeholder="名称">
+          </mat-form-field>
+          </div>
         </div>
         <div class="form-group">
-          <label class="cent-block">端口:
-            <input class="form-control" type="text" formControlName="port">
-          </label>
+          <div class="dialog-container">
+          <mat-form-field>
+            <input matInput type="number" formControlName="port" placeholder="端口">
+          </mat-form-field>
+          </div>
         </div>
         <div class="form-group">
-          <label class="cent-block">协议:
-            <select class="form-control" type="text" formControlName="protocol">
-              <option value="TCP">TCP</option>
-              <option value="UDP">UDP</option>
-            </select>
-          </label>
+          <div class="dialog-container">
+          <mat-form-field>
+            <mat-select placeholder="协议" formControlName="protocol">
+              <mat-option value="TCP" selected>
+                TCP
+              </mat-option>
+              <mat-option value="UDP">
+                UDP
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          </div>
         </div>
         <div class="form-group">
-          <label class="cent-block">目标端口:
-            <input class="form-control" type="text" formControlName="targetPort">
-          </label>
+          <div class="dialog-container">
+          <mat-form-field>
+            <input matInput type="number" formControlName="targetPort" placeholder="目标端口">
+          </mat-form-field>
+          </div>
         </div>
         </div>
-        <button (click)="addPort()" type="button">添加端口</button>
+        <button mat-fab color="primary" (click)="addPort()" type="button">添加端口</button>
       </div>
     </form>
   </mat-step>
 </mat-horizontal-stepper>
-<p>appForm value: {{ appForm.value | json }}</p>
-<p>appForm status: {{ appForm.status | json }}</p>
-<p>containerForm value: {{ containerForm.value | json }}</p>
-<p>envForm value: {{ envForm.value | json }}</p>
-<p>serviceForm value: {{ serviceForm.value | json }}</p>
-<p>containerForm status: {{ containerForm.status | json }}</p>
+<!--<p>appForm value: {{ appForm.value | json }}</p>-->
+<!--<p>appForm status: {{ appForm.status | json }}</p>-->
+<!--<p>containerForm value: {{ containerForm.value | json }}</p>-->
+<!--<p>envForm value: {{ envForm.value | json }}</p>-->
+<!--<p>serviceForm value: {{ serviceForm.value | json }}</p>-->
+<!--<p>containerForm status: {{ containerForm.status | json }}</p>-->
 <div mat-dialog-actions>
-  <button mat-button mat-dialog-close>取消</button>
-  <button mat-button (click)="submit()" [mat-dialog-close]="true" cdkFocusInitial>确定</button>
+  <button mat-button color="warn" mat-dialog-close>取消</button>
+  <button mat-button color="primary" (click)="submit()" [mat-dialog-close]="true" cdkFocusInitial>确定</button>
 </div>

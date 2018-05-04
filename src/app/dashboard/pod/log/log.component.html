@@ -3,8 +3,8 @@
   <ngx-monaco-editor class="my-code-editor" [options]="editorOptions" [(ngModel)]="code"></ngx-monaco-editor>
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-button mat-dialog-close>关闭</button>
-  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>确定</button>
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>关闭</button>
+  <button mat-button (click)="flushLog()" type="button">刷新</button>
   <!--(click)="getLog('default', 'tomcat-5846dbdc59-tv7w6')"-->
 </mat-dialog-actions>
 

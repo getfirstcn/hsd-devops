@@ -13,6 +13,19 @@ import {PodDetailComponent} from './pod/pod-detail/pod-detail.component';
 import {ServiceDetailComponent} from './service/service-detail/service-detail.component';
 import {ApplicationStepperComponent} from './application/application-stepper/application-stepper.component';
 import {LogComponent} from './pod/log/log.component';
+import {NamespaceComponent} from './namespace/namespace.component';
+import {NamespaceDetailComponent} from './namespace/namespace-detail/namespace-detail.component';
+import {NodeComponent} from './node/node.component';
+import {PersistentVolumesComponent} from './persistent-volumes/persistent-volumes.component';
+import {CronJobsComponent} from './cron-jobs/cron-jobs.component';
+import {SecretComponent} from './secret/secret.component';
+import {SecretDetailComponent} from './secret/secret-detail/secret-detail.component';
+import {ReplicationControllersComponent} from './replication-controllers/replication-controllers.component';
+import {DaemonSetsComponent} from './daemon-sets/daemon-sets.component';
+import {JobComponent} from './job/job.component';
+import {IngressComponent} from './ingress/ingress.component';
+import {ConfigMapsComponent} from './config-maps/config-maps.component';
+import {PersistentVolumeClaimsComponent} from './persistent-volume-claims/persistent-volume-claims.component';
 
 const routes: Routes = [
   {path: '', component: LayoutComponent,
@@ -25,8 +38,22 @@ const routes: Routes = [
   {path: 'deployment/:namespace/:name', component: DeploymentDetailComponent},
   {path: 'services', component: ServiceComponent},
   {path: 'service/:namespace/:name', component: ServiceDetailComponent},
+  {path: 'ingress', component: IngressComponent},
   {path: 'application', component: ApplicationStepperComponent},
+  {path: 'statefulsets', component: DaemonSetsComponent},
+  {path: 'jobs', component: JobComponent},
+  {path: 'cronjobs', component: CronJobsComponent},
+  {path: 'replicationcontrollers', component: ReplicationControllersComponent},
   {path: 'monitor', component: MonitorModule},
+  {path: 'persistentvolumes', component: PersistentVolumesComponent},
+  {path: 'cronjobs', component: CronJobsComponent},
+  {path: 'secrets', component: SecretComponent},
+  {path: 'secret/:namespace/:name', component: SecretDetailComponent},
+  {path: 'configmaps', component: ConfigMapsComponent},
+  {path: 'persistentvolumeclaims', component: PersistentVolumeClaimsComponent},
+  {path: 'namespace', component: NamespaceComponent},
+  {path: 'namespace/:name', component: NamespaceDetailComponent},
+  {path: 'nodes', component: NodeComponent},
   {path: 'cluster', component: ClusterComponent},
   {path: '**', component: OverviewComponent}
   ]

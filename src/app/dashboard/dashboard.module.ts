@@ -14,6 +14,7 @@ import { ClusterComponent } from './cluster/cluster.component';
 import {DeploymentComponent} from './deployment/deployment.component';
 import {OverviewComponent} from './overview/overview.component';
 import {ServiceComponent} from './service/service.component';
+import {NamespaceComponent} from './namespace/namespace.component';
 import { KvPipe } from './pipes/kv.pipe';
 import { DeploymentDetailComponent } from './deployment/deployment-detail/deployment-detail.component';
 import { PodComponent } from './pod/pod.component';
@@ -21,6 +22,8 @@ import { PodDetailComponent } from './pod/pod-detail/pod-detail.component';
 import { ServiceDetailComponent } from './service/service-detail/service-detail.component';
 import { PodWithLabelComponent } from './pod/pod-with-label/pod-with-label.component';
 import { LabelPipe } from './pipes/label.pipe';
+import {NamespaceService} from './namespace/namespace.service';
+import {getDutchPaginatorIntl} from './secret/dutch-paginator.intl';
 
  // service
 import {PodService} from './pod/pod.service';
@@ -29,6 +32,21 @@ import { ApplicationButtonComponent } from './application/application-button/app
 import { ApplicationDialogComponent } from './application/application-dialog/application-dialog.component';
 import { ApplicationStepperComponent } from './application/application-stepper/application-stepper.component';
 import { LogComponent } from './pod/log/log.component';
+import { NamespaceDetailComponent } from './namespace/namespace-detail/namespace-detail.component';
+import { NodeComponent } from './node/node.component';
+import { NodeDetailComponent } from './node/node-detail/node-detail.component';
+import { PersistentVolumesComponent } from './persistent-volumes/persistent-volumes.component';
+import { CronJobsComponent } from './cron-jobs/cron-jobs.component';
+import { DaemonSetsComponent } from './daemon-sets/daemon-sets.component';
+import { ReplicaSetsComponent } from './replica-sets/replica-sets.component';
+import { ReplicationControllersComponent } from './replication-controllers/replication-controllers.component';
+import { IngressComponent } from './ingress/ingress.component';
+import { ConfigMapsComponent } from './config-maps/config-maps.component';
+import { SecretComponent } from './secret/secret.component';
+import { SecretDetailComponent } from './secret/secret-detail/secret-detail.component';
+import { JobComponent } from './job/job.component';
+import { PersistentVolumeClaimsComponent } from './persistent-volume-claims/persistent-volume-claims.component';
+import {MatPaginatorIntl} from '@angular/material';
 
 @NgModule({
   imports: [
@@ -59,9 +77,24 @@ import { LogComponent } from './pod/log/log.component';
     ApplicationButtonComponent,
     ApplicationDialogComponent,
     ApplicationStepperComponent,
-    LogComponent
+    LogComponent,
+    NamespaceComponent,
+    NamespaceDetailComponent,
+    NodeComponent,
+    NodeDetailComponent,
+    PersistentVolumesComponent,
+    CronJobsComponent,
+    DaemonSetsComponent,
+    ReplicaSetsComponent,
+    ReplicationControllersComponent,
+    IngressComponent,
+    ConfigMapsComponent,
+    SecretComponent,
+    SecretDetailComponent,
+    JobComponent,
+    PersistentVolumeClaimsComponent
   ],
-  providers: [PodService],
+  providers: [PodService, NamespaceService, {provide: MatPaginatorIntl, useValue: getDutchPaginatorIntl()}],
   entryComponents: [ApplicationButtonComponent, ApplicationDialogComponent, LogComponent]
 })
 export class DashboardModule { }

@@ -1,3 +1,23 @@
 .application-dialog-content{
   width: 1400px;
 }
+.app-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.dialog-container {
+  display: flex;
+  flex-direction: column;
+}
+.dialog-container > * {
+  width: 50%;
+}
+.dialog-container-object {
+  display: flex;
+}
+.dialog-container-object > * {
+  width: 25%;
+}
+

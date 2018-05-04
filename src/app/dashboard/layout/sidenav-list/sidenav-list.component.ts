@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
+import {NamespaceService} from '../../namespace/namespace.service';
 
 @Component({
   selector: 'app-sidenav-list',
   templateUrl: './sidenav-list.component.html',
-  styleUrls: ['./sidenav-list.component.scss']
+  styleUrls: ['./sidenav-list.component.scss'],
+
 })
 export class SidenavListComponent implements OnInit {
 
-  constructor() { }
+  constructor(private ns: NamespaceService) { }
   cluster = [
     {
       name: '命名空间',
@@ -25,7 +27,7 @@ export class SidenavListComponent implements OnInit {
   workers = [
     {
       name: '定时任务',
-      route: '/dashboard/jobs',
+      route: '/dashboard/cronjobs',
     },
     {
       name: '部署',
@@ -33,7 +35,7 @@ export class SidenavListComponent implements OnInit {
     },
     {
       name: '任务',
-      route: '/dashboard/deployments',
+      route: '/dashboard/jobs',
     },
     {
       name: '容器组',
@@ -49,7 +51,7 @@ export class SidenavListComponent implements OnInit {
     },
     {
       name: '状态副本集',
-      route: '/dashboard/statefulset',
+      route: '/dashboard/statefulsets',
     }
   ];
   services = [
@@ -65,18 +67,23 @@ export class SidenavListComponent implements OnInit {
   secrets = [
     {
       name: '配置',
-      route: '/dashboard/ingress',
+      route: '/dashboard/configmaps',
     },
     {
       name: '存储请求',
-      route: '/dashboard/ingress',
+      route: '/dashboard/persistentvolumeclaims',
     },
     {
       name: '秘密',
-      route: '/dashboard/ingress',
+      route: '/dashboard/secrets',
     }
   ];
+  namespaces = ['all', 'default', 'kube-system'];
   ngOnInit() {
+  }
+  setNamespace(node) {
+    this.ns.setGlobalNamespace(node);
+    console.log('节点值', node);
   }
 
 }

@@ -64,7 +64,7 @@ export class PodComponent implements OnInit {
           const dialogRef = this.dialog.open(LogComponent, {
             height: 'calc(90vh)',
             width: 'calc(100vw - 100px)',
-            data: error.error.text
+            data: {log: error.error.text, name: name, namespace: namespace}
           });
           dialogRef.afterClosed().subscribe(result => {
             console.log(`Dialog result: ${result}`);
