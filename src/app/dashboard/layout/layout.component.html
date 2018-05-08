@@ -9,5 +9,8 @@
   </mat-sidenav-content>
 </mat-sidenav-container>
 <mat-toolbar class="footer">
-  <button mat-button (click)="MatSidenav.toggle()" >打开</button>
+  <button class="sidenav-button" mat-fab (click)="MatSidenav.toggle()" >
+    <mat-icon aria-label="open close navigation">arrow_back</mat-icon>
+  </button>
+  <p class="copyright">版权所有@合时代金融服务有限公司</p>
 </mat-toolbar>

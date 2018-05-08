@@ -25,7 +25,16 @@ import {DaemonSetsComponent} from './daemon-sets/daemon-sets.component';
 import {JobComponent} from './job/job.component';
 import {IngressComponent} from './ingress/ingress.component';
 import {ConfigMapsComponent} from './config-maps/config-maps.component';
+import {ConfigMapDetailComponent} from './config-maps/config-map-detail/config-map-detail.component';
 import {PersistentVolumeClaimsComponent} from './persistent-volume-claims/persistent-volume-claims.component';
+import {
+  PersistentVolumeClaimDetailComponent
+} from './persistent-volume-claims/persistent-volume-claim-detail/persistent-volume-claim-detail.component';
+import {IngressDetailComponent} from './ingress/ingress-detail/ingress-detail.component';
+import {DaemonSetDetailComponent} from './daemon-sets/daemon-set-detail/daemon-set-detail.component';
+import {ReplicaSet} from './replica-sets/replica-set';
+import {ReplicaSetsComponent} from './replica-sets/replica-sets.component';
+import {ReplicasetDetailComponent} from './replica-sets/replicaset-detail/replicaset-detail.component';
 
 const routes: Routes = [
   {path: '', component: LayoutComponent,
@@ -38,9 +47,13 @@ const routes: Routes = [
   {path: 'deployment/:namespace/:name', component: DeploymentDetailComponent},
   {path: 'services', component: ServiceComponent},
   {path: 'service/:namespace/:name', component: ServiceDetailComponent},
-  {path: 'ingress', component: IngressComponent},
+  {path: 'ingresses', component: IngressComponent},
+  {path: 'ingress/:namespace/:name', component: IngressDetailComponent},
   {path: 'application', component: ApplicationStepperComponent},
+  {path: 'replicasets', component: ReplicaSetsComponent},
+  {path: 'replicaset/:namespace/:name', component: ReplicasetDetailComponent},
   {path: 'statefulsets', component: DaemonSetsComponent},
+  {path: 'statefulset/:namespace/:name', component: DaemonSetDetailComponent},
   {path: 'jobs', component: JobComponent},
   {path: 'cronjobs', component: CronJobsComponent},
   {path: 'replicationcontrollers', component: ReplicationControllersComponent},
@@ -50,7 +63,9 @@ const routes: Routes = [
   {path: 'secrets', component: SecretComponent},
   {path: 'secret/:namespace/:name', component: SecretDetailComponent},
   {path: 'configmaps', component: ConfigMapsComponent},
+  {path: 'configmap/:namespace/:name', component: ConfigMapDetailComponent},
   {path: 'persistentvolumeclaims', component: PersistentVolumeClaimsComponent},
+  {path: 'persistentvolumeclaim/:namespace/:name', component: PersistentVolumeClaimDetailComponent},
   {path: 'namespace', component: NamespaceComponent},
   {path: 'namespace/:name', component: NamespaceDetailComponent},
   {path: 'nodes', component: NodeComponent},

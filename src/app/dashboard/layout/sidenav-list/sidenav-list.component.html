@@ -5,12 +5,12 @@
        [routerLink]="item.route"
        [routerLinkActive]="['active']"
        [routerLinkActiveOptions]="{exact:true}">
-    <mat-icon mat-list-icon>folder</mat-icon>
+    <mat-icon mat-list-icon>settings_system_daydream</mat-icon>
     <h4 mat-line>{{item.name}}</h4>
     </a>
   </mat-list-item>
   <h3 mat-subheader>命名空间</h3>
-  <select (click)="setNamespace($event.target.value)">
+  <select class="select-namespace" (click)="setNamespace($event.target.value)">
     <option *ngFor="let ns of namespaces" [ngValue]="ns">{{ns}}</option>
   </select>
   <h3 mat-subheader>工作</h3>
@@ -19,7 +19,7 @@
       [routerLink]="item.route"
       [routerLinkActive]="['active']"
       [routerLinkActiveOptions]="{exact:true}">
-    <mat-icon mat-list-icon>folder</mat-icon>
+    <mat-icon mat-list-icon>dvr</mat-icon>
     <h4 mat-line>{{item.name}}</h4>
     </a>
   </mat-list-item>
@@ -30,7 +30,7 @@
        [routerLink]="item.route"
        [routerLinkActive]="['active']"
        [routerLinkActiveOptions]="{exact:true}">
-    <mat-icon mat-list-icon>note</mat-icon>
+    <mat-icon mat-list-icon>directions</mat-icon>
     <h4 mat-line>{{item.name}}</h4>
     </a>
   </mat-list-item>
@@ -40,7 +40,7 @@
        [routerLink]="item.route"
        [routerLinkActive]="['active']"
        [routerLinkActiveOptions]="{exact:true}">
-    <mat-icon mat-list-icon>note</mat-icon>
+    <mat-icon mat-list-icon>note_add</mat-icon>
     <h4 mat-line>{{item.name}}</h4>
     </a>
   </mat-list-item>

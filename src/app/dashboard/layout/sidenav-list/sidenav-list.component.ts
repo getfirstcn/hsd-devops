@@ -38,10 +38,6 @@ export class SidenavListComponent implements OnInit, AfterViewInit {
       route: '/dashboard/deployments',
     },
     {
-      name: '任务',
-      route: '/dashboard/jobs',
-    },
-    {
       name: '容器组',
       route: '/dashboard/pods',
     },
@@ -65,7 +61,7 @@ export class SidenavListComponent implements OnInit, AfterViewInit {
     },
     {
       name: '网关',
-      route: '/dashboard/ingress',
+      route: '/dashboard/ingresses',
     }
   ];
   secrets = [

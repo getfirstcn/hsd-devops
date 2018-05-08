@@ -11,30 +11,27 @@
     <ng-container matColumnDef="name">
       <mat-header-cell *matHeaderCellDef> 名称 </mat-header-cell>
       <mat-cell *matCellDef="let element">
-        <a [routerLink]="['/dashboard/node', element.metadata.namespace, element.metadata.name]">{{element.metadata.name}}</a>
+        <a [routerLink]="['/dashboard/ingress', element.metadata.namespace, element.metadata.name]">{{element.metadata.name}}</a>
       </mat-cell>
     </ng-container>
 
     <!-- Name Column -->
-    <ng-container matColumnDef="label">
-      <mat-header-cell *matHeaderCellDef> 标签 </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.metadata.labels | kv}} </mat-cell>
+    <ng-container matColumnDef="namespace">
+      <mat-header-cell *matHeaderCellDef> 名称空间 </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.metadata.namespace}} </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="IP">
-      <mat-header-cell *matHeaderCellDef> 容量 </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.status.addresses[0].address}} </mat-cell>
+    <ng-container matColumnDef="rule">
+      <mat-header-cell *matHeaderCellDef> 路由策略 </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <span *ngFor="let rule of element.spec.rules; let i = index;">{{rule.host}}:{{rule.http.paths[0].path}}</span>
+       </mat-cell>
     </ng-container>
 
     <!-- Weight Column -->
-    <ng-container matColumnDef="CPU_requests">
-      <mat-header-cell *matHeaderCellDef> 类型 </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.status.capacity.cpu}} </mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="Memory_requests">
-      <mat-header-cell *matHeaderCellDef> 内存 </mat-header-cell>
-      <mat-cell *matCellDef="let element">{{element.status.capacity.memory}}</mat-cell>
+    <ng-container matColumnDef="status">
+      <mat-header-cell *matHeaderCellDef> 状态 </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.status | json}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="createDate">
@@ -46,7 +43,7 @@
           <mat-icon aria-hidden="true">more_vert</mat-icon>
         </button>
         <mat-menu #serviceDropDownMenu="matMenu">
-          <button mat-menu-item (click)="deleteNode(element.metadata.namespace,element.metadata.name)">
+          <button mat-menu-item (click)="deleteIngress(element.metadata.namespace,element.metadata.name)">
             <mat-icon>chevron_left</mat-icon>
             <span>删除</span>
           </button>

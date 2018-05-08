@@ -1,0 +1,60 @@
+<mat-card class="deployment-detail-card">
+  <mat-card-header>
+    <div mat-card-avatar class="deployment-detail-header-image"></div>
+    <mat-card-title><h3>存储请求</h3></mat-card-title>
+  </mat-card-header>
+  <mat-divider></mat-divider>
+  <mat-card-content *ngIf="persistentvolumeclaim">
+    <mat-list role="list">
+      <mat-list-item>
+        <div>
+          <span>名称：</span><span>{{ persistentvolumeclaim.metadata.name }}</span>
+        </div>
+      </mat-list-item>
+      <mat-list-item>
+        <div>
+          <span>命名空间：</span><span>{{ persistentvolumeclaim.metadata.namespace }}</span>
+        </div>
+      </mat-list-item>
+      <mat-list-item role="listitem">
+        <div>
+          <span>注解：</span><span>{{ persistentvolumeclaim.metadata.annotations | json }}</span>
+        </div>
+      </mat-list-item>
+      <mat-list-item role="listitem">
+        <div>
+          <span>创建时间：</span><span>{{ persistentvolumeclaim.metadata.creationTimestamp | date: 'yyyy-MM-dd HH:mm:ss' }}</span>
+        </div>
+      </mat-list-item>
+      <mat-list-item role="listitem">
+        <div>
+          <span>访问模式：</span><span>{{ persistentvolumeclaim.spec.accessModes }}</span>
+        </div>
+      </mat-list-item>
+      <mat-list-item role="listitem">
+        <div>
+          <span>匹配标记：</span><span>{{ persistentvolumeclaim.spec.selector.matchLabels | kv }}</span>
+        </div>
+      </mat-list-item>
+      <mat-list-item role="listitem">
+        <div>
+          <span>容量：</span><span>{{ persistentvolumeclaim.spec.resources.requests.storage }}</span>
+        </div>
+      </mat-list-item>
+      <mat-list-item role="listitem">
+        <div>
+          <span>存储类：</span><span>{{ persistentvolumeclaim.spec.storageClassName }}</span>
+        </div>
+      </mat-list-item>
+      <mat-list-item role="listitem">
+        <div>
+          <span>状态：</span><span>{{ persistentvolumeclaim.status.phase }}</span>
+        </div>
+      </mat-list-item>
+    </mat-list>
+  </mat-card-content>
+</mat-card>
+<mat-divider></mat-divider>
+
+<!--<app-pod-with-label [label]="service.metadata.labels | label" [namespace]="service.metadata.namespace"></app-pod-with-label>-->
+

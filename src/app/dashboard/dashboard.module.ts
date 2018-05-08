@@ -47,6 +47,11 @@ import { SecretDetailComponent } from './secret/secret-detail/secret-detail.comp
 import { JobComponent } from './job/job.component';
 import { PersistentVolumeClaimsComponent } from './persistent-volume-claims/persistent-volume-claims.component';
 import {MatPaginatorIntl} from '@angular/material';
+import { PersistentVolumeClaimDetailComponent } from './persistent-volume-claims/persistent-volume-claim-detail/persistent-volume-claim-detail.component';
+import { ConfigMapDetailComponent } from './config-maps/config-map-detail/config-map-detail.component';
+import { IngressDetailComponent } from './ingress/ingress-detail/ingress-detail.component';
+import { DaemonSetDetailComponent } from './daemon-sets/daemon-set-detail/daemon-set-detail.component';
+import { ReplicasetDetailComponent } from './replica-sets/replicaset-detail/replicaset-detail.component';
 
 @NgModule({
   imports: [
@@ -92,7 +97,12 @@ import {MatPaginatorIntl} from '@angular/material';
     SecretComponent,
     SecretDetailComponent,
     JobComponent,
-    PersistentVolumeClaimsComponent
+    PersistentVolumeClaimsComponent,
+    PersistentVolumeClaimDetailComponent,
+    ConfigMapDetailComponent,
+    IngressDetailComponent,
+    DaemonSetDetailComponent,
+    ReplicasetDetailComponent
   ],
   providers: [PodService, NamespaceService, {provide: MatPaginatorIntl, useValue: getDutchPaginatorIntl()}],
   entryComponents: [ApplicationButtonComponent, ApplicationDialogComponent, LogComponent]
