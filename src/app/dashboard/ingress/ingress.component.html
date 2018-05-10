@@ -30,8 +30,12 @@
 
     <!-- Weight Column -->
     <ng-container matColumnDef="status">
-      <mat-header-cell *matHeaderCellDef> 状态 </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.status | json}} </mat-cell>
+      <mat-header-cell *matHeaderCellDef> 地址 </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <span *ngFor="let rule of element.spec.rules;">
+          <a href="http://{{rule.host || 'http:192.168.254.194'}}{{rule.http.paths[0].path}}">http://{{rule.host || 'http:192.168.254.194'}}{{rule.http.paths[0].path}}</a>
+        </span>
+      </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="createDate">

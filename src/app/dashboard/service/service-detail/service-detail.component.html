@@ -50,6 +50,15 @@
         </span>
         </div>
       </mat-list-item>
+      <mat-list-item role="listitem">
+        <div>
+          <span>地址：</span><span *ngIf="service.spec.type">
+          <span *ngFor="let port of service.spec.ports; let i=index">
+            <a href="http://192.168.254.194:{{port.nodePort}}">http://192.168.254.194:{{port.nodePort}}</a>
+          </span>
+        </span>
+        </div>
+      </mat-list-item>
     </mat-list>
   </mat-card-content>
 </mat-card>

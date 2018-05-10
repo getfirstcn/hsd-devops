@@ -52,3 +52,12 @@ export class Port {
   protocol = 'tcp';
   targetPort = 80;
 }
+export class Rule {
+  host = '';
+  // http: {paths: Path[]};
+}
+export class Path {
+  path = '';
+  servicePort = 80;
+  serviceName = '';
+}

@@ -163,12 +163,83 @@
       </div>
     </form>
   </mat-step>
+  <mat-step>
+    <form [formGroup]="ingressForm">
+      <ng-template matStepLabel>入口</ng-template>
+      <div class="form-group">
+        <div class="dialog-container">
+          <mat-form-field>
+            <input matInput type="text" formControlName="host" placeholder="主机">
+          </mat-form-field>
+        </div>
+      </div>
+      <div formArrayName="http">
+        <div *ngFor="let r of http.controls; let i=index;" [formGroupName]="i">
+        <h4>策略 #{{ i + 1 }}</h4>
+        <div class="form-group">
+          <div class="dialog-container">
+            <mat-form-field>
+              <input matInput type="text" formControlName="path" placeholder="路径">
+            </mat-form-field>
+          </div>
+        </div>
+          <div class="form-group">
+            <div class="dialog-container">
+              <mat-form-field>
+                <input matInput type="text" formControlName="serviceName" placeholder="服务名">
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="dialog-container">
+              <mat-form-field>
+                <input matInput type="number" formControlName="servicePort" placeholder="服务端口">
+              </mat-form-field>
+            </div>
+          </div>
+      </div>
+      </div>
+      </form>
+    <button mat-fab color="primary" (click)="addhttp()" type="button">添加策略</button>
+    <!--<form [formGroup]="pathForm">-->
+      <!--<div formArrayName="paths">-->
+        <!--<div *ngFor="let p of paths.controls; let i=index;" [formGroupName]="i">-->
+          <!--<h5>路径 #{{ i + 1 }}</h5>-->
+          <!--<div class="form-group">-->
+            <!--<div class="dialog-container">-->
+              <!--<mat-form-field>-->
+                <!--<input matInput type="text" formControlName="path" placeholder="路径">-->
+              <!--</mat-form-field>-->
+            <!--</div>-->
+          <!--</div>-->
+          <!--<div formGroupName="backend">-->
+            <!--<div class="form-group">-->
+              <!--<div class="dialog-container">-->
+                <!--<mat-form-field>-->
+                  <!--<input matInput type="text" formControlName="serviceName" placeholder="服务名">-->
+                <!--</mat-form-field>-->
+              <!--</div>-->
+            <!--</div>-->
+            <!--<div class="form-group">-->
+              <!--<div class="dialog-container">-->
+                <!--<mat-form-field>-->
+                  <!--<input matInput type="text" formControlName="servicePort" placeholder="服务端口">-->
+                <!--</mat-form-field>-->
+              <!--</div>-->
+            <!--</div>-->
+          <!--</div>-->
+          <!--<button mat-fab color="primary" (click)="addPath()" type="button">添加路径</button>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</form>-->
+  </mat-step>
 </mat-horizontal-stepper>
-<!--<p>appForm value: {{ appForm.value | json }}</p>-->
+<p>appForm value: {{ appForm.value | json }}</p>
 <!--<p>appForm status: {{ appForm.status | json }}</p>-->
 <!--<p>containerForm value: {{ containerForm.value | json }}</p>-->
-<!--<p>envForm value: {{ envForm.value | json }}</p>-->
-<!--<p>serviceForm value: {{ serviceForm.value | json }}</p>-->
+<p>envForm value: {{ envForm.value | json }}</p>
+<p>serviceForm value: {{ serviceForm.value | json }}</p>
+<p>ingressForm value: {{ ingressForm.value | json }}</p>
 <!--<p>containerForm status: {{ containerForm.status | json }}</p>-->
 <div mat-dialog-actions>
   <button mat-button color="warn" mat-dialog-close>取消</button>

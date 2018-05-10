@@ -18,6 +18,11 @@ export class IngressService {
     return this.http.get<V1beta1Ingress>(`/apis/extensions/v1beta1/namespaces/${namespace}/ingresses/${name}`);
   }
   deleteIngrees(namespace: string, name: string) {
-    return this.http.get<V1Status>(`/apis/extensions/v1beta1/namespaces/${namespace}/ingresses/${name}`);
+    return this.http.delete<V1Status>(`/apis/extensions/v1beta1/namespaces/${namespace}/ingresses/${name}`);
+  }
+  createIngress(body: V1beta1Ingress): Observable<V1beta1Ingress> {
+    console.log('入口服务收到', body);
+    const namespace = body.metadata.namespace;
+    return this.http.post<V1beta1Ingress>(`/apis/extensions/v1beta1/namespaces/${namespace}/ingresses`, body);
   }
 }

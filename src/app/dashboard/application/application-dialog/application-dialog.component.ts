@@ -2,26 +2,38 @@ import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {validate} from 'codelyzer/walkerFactory/walkerFn';
-import {Container, Port, Env} from '../application';
+import {Container, Port, Env, Rule, Path} from '../application';
 // import {Deployment, Strategy} from '../../deployment/deployment';
 import {
   AppsV1beta1Deployment,
-  AppsV1beta1DeploymentSpec, V1Container, V1ContainerPort, V1EnvVar, V1LabelSelector,
+  AppsV1beta1DeploymentSpec,
+  V1Container,
+  V1ContainerPort,
+  V1EnvVar,
+  V1LabelSelector,
   V1ObjectMeta,
   V1PodSpec,
   V1PodTemplateSpec,
   V1ListMeta,
   V1Status,
-  V1Service, V1ServiceSpec, V1ServicePort
+  V1Service,
+  V1ServiceSpec,
+  V1ServicePort,
+  V1beta1Ingress,
+  V1beta1IngressRule,
+  V1beta1HTTPIngressRuleValue,
+  V1beta1HTTPIngressPath,
+  V1beta1IngressSpec, V1beta1IngressBackend
 } from '../../api';
 import {ApplicationService} from '../application.service';
 import {ServiceService} from '../../service/service.service';
+import {IngressService} from '../../ingress/ingress.service';
 
 @Component({
   selector: 'app-application-dialog',
   templateUrl: './application-dialog.component.html',
   styleUrls: ['./application-dialog.component.scss'],
-  providers: [ApplicationService, ServiceService]
+  providers: [ApplicationService, ServiceService, IngressService]
 })
 export class ApplicationDialogComponent implements OnInit, OnChanges {
   serviceTypes = ['ClusterIP', 'NodePort', 'LoadBalancer'];
@@ -29,12 +41,15 @@ export class ApplicationDialogComponent implements OnInit, OnChanges {
   containerForm: FormGroup;
   envForm: FormGroup;
   serviceForm: FormGroup;
+  ingressForm: FormGroup;
+  pathForm: FormGroup;
 
   constructor(
     private fb: FormBuilder,
     private app: ApplicationService,
     private router: Router,
-    private service: ServiceService) {
+    private service: ServiceService,
+    private ingress: IngressService) {
     this.createForm();
   }
 
@@ -49,15 +64,34 @@ export class ApplicationDialogComponent implements OnInit, OnChanges {
       })
     });
     this.containerForm = this.fb.group({
-      containers: this.fb.array([]),
+      containers: this.fb.array([this.fb.group(new Container())]),
     });
     this.envForm = this.fb.group({
-      env: this.fb.array([])
+      env: this.fb.array([this.fb.group(new Env())])
     });
     this.serviceForm = this.fb.group({
       type: '',
-      ports: this.fb.array([])
+      ports: this.fb.array([this.fb.group(new Port())])
     });
+    this.ingressForm = this.fb.group({
+      host: '',
+      http: this.fb.array([this.fb.group(new Path())
+      ])
+    });
+    // this.pathForm = this.fb.group({
+    //   paths: this.fb.array([
+    //     {
+    //       path: '',
+    //       backend: this.fb.group({
+    //         serviceName: '',
+    //         servicePort: ''
+    //       })
+    //     }
+    //   ])
+    // });
+    // this.pathForm = this.fb.group({
+    //   paths: this.fb.array([])
+    // });
   }
 
   // setContainer(containers: V1Container[]) {
@@ -87,6 +121,13 @@ export class ApplicationDialogComponent implements OnInit, OnChanges {
 
   addPort() {
     return this.ports.push(this.fb.group(new Port()));
+  }
+
+  get http(): FormArray {
+    return this.ingressForm.get('http') as FormArray;
+  }
+  addhttp() {
+    return this.http.push(this.fb.group(new Path()));
   }
 
   prepareDeployment(): AppsV1beta1Deployment {
@@ -218,12 +259,55 @@ export class ApplicationDialogComponent implements OnInit, OnChanges {
     }
     return ports;
   }
+  prepareIngress() {
+    const ingressModel = this.ingressForm.value;
+    const appModel = this.appForm.value;
+    const serviceModel = this.serviceForm.value;
+    const ingress: V1beta1Ingress = new V1beta1Ingress();
+    const metadata: V1ObjectMeta = new V1ObjectMeta();
+    const spec: V1beta1IngressSpec = new V1beta1IngressSpec();
+    metadata.name = appModel.name;
+    metadata.namespace = appModel.namespace;
+    ingress.metadata = metadata;
+    spec.rules = this.generateRules(ingressModel);
+    ingress.spec = spec;
+    return ingress;
+  }
+  generateRules(ingressModel): V1beta1IngressRule[] {
+    const rules: V1beta1IngressRule[] = [];
+    const rule = new  V1beta1IngressRule();
+    rule.host = ingressModel.host;
+      const http = new V1beta1HTTPIngressRuleValue();
+      http.paths = this.generatePath(ingressModel.http);
+      rule.http = http;
+      rules.push(rule);
+    console.log('生成rules', rules);
+    return rules;
+  }
+  generatePath(ruleModel) {
+    console.log('generatepath', ruleModel);
+    const paths: V1beta1HTTPIngressPath[] = [];
+    for (const model of ruleModel) {
+    const path = new V1beta1HTTPIngressPath();
+    const backend = new V1beta1IngressBackend();
+    path.path = model.path;
+    backend.servicePort = model.servicePort;
+    backend.serviceName = model.serviceName;
+    path.backend = backend;
+    paths.push(path);
+    }
+    console.log('生成paths', paths);
+    return paths;
+  }
+
 
   submit() {
     const deployment: AppsV1beta1Deployment = this.prepareDeployment();
     const service: V1Service = this.prepareService();
+    const ingress: V1beta1Ingress = this.prepareIngress();
     console.log('生成服务', service);
-    console.log('生成', deployment);
+    console.log('生成部署', deployment);
+    console.log('生成入口', ingress);
     this.service.createService('default', service)
       .subscribe(data => {
         console.log('返回服务', data);
@@ -232,6 +316,10 @@ export class ApplicationDialogComponent implements OnInit, OnChanges {
       .subscribe(data => {
         console.log('返回', data);
         this.router.navigate(['/dashboard']);
+      });
+    this.ingress.createIngress(ingress)
+      .subscribe(resp => {
+        console.log('创建入口', resp);
       });
   }
 

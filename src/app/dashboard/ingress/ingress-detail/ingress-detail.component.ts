@@ -11,6 +11,7 @@ import {V1beta1Ingress} from '../../api';
 })
 export class IngressDetailComponent implements OnInit {
    ingress: V1beta1Ingress;
+   Urls: string[];
   constructor(private route: ActivatedRoute,
               private ingressService: IngressService) { }
 
@@ -24,6 +25,19 @@ export class IngressDetailComponent implements OnInit {
       .subscribe(ingress => {
         console.log('readIngress', ingress);
         this.ingress = ingress;
+        // this.generateAddress(ingress);
       });
   }
+  // generateAddress(ingress) {
+  //   for (const rule of ingress.spec.rules) {
+  //     const urls = [];
+  //     if (rule.host) {
+  //       for (const path of rule.http.paths) {
+  //         const url = 'http://{{rule.http}}/{{path.path}}';
+  //         this.Urls.push(url);
+  //       }
+  //     }
+  //   }
+  // }
+
 }

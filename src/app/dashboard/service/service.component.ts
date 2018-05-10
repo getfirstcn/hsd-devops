@@ -26,12 +26,15 @@ export class ServiceComponent implements OnInit, AfterViewInit {
     this.dataSource.paginator = this.paginator;
   }
   ngOnInit() {
+    this.initService();
+  }
+  initService() {
     this.ns.getGlobalNamespace()
       .subscribe(namespace => {
         console.log('init namespace', namespace);
         this.serviceService.getservices(namespace).subscribe(
-        list => {this.dataSource.data = list; console.log('get services', list); }
-      );
+          list => {this.dataSource.data = list; console.log('get services', list); }
+        );
       });
   }
 
@@ -45,9 +48,7 @@ export class ServiceComponent implements OnInit, AfterViewInit {
       .subscribe(status => {
         console.log('删除服务', status);
         if (status.status === 'Success') {
-        this.serviceService.getservices('default').subscribe(
-          list => {this.dataSource = list; console.log('get services', list); }
-        );
+        this.initService();
         }
       });
   }

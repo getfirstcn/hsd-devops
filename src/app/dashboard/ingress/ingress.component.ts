@@ -1,9 +1,7 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatTableDataSource} from '@angular/material';
-import {Element} from '../node/node.component';
 import {NamespaceService} from '../namespace/namespace.service';
 import {IngressService} from './ingress.service';
-import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-ingress',
@@ -13,8 +11,7 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class IngressComponent implements OnInit, AfterViewInit {
   displayedColumns = ['name', 'namespace', 'rule', 'status', 'createDate'];
-  TABLE: any;
-  dataSource = new MatTableDataSource<Element>(this.TABLE);
+  dataSource = new MatTableDataSource();
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private ns: NamespaceService,
@@ -50,7 +47,14 @@ export class IngressComponent implements OnInit, AfterViewInit {
       });
   }
   deleteIngress(namespace, name) {
-    this.ingressService.deleteIngrees(namespace, name);
+    console.log('删除入口', namespace, name);
+    this.ingressService.deleteIngrees(namespace, name)
+      .subscribe(resp => {
+        console.log(resp);
+        if (resp.status === 'Success') {
+          this.initIngress();
+        }
+      });
   }
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim(); // Remove whitespace

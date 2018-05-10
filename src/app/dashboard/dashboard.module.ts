@@ -102,7 +102,7 @@ import { ReplicasetDetailComponent } from './replica-sets/replicaset-detail/repl
     ConfigMapDetailComponent,
     IngressDetailComponent,
     DaemonSetDetailComponent,
-    ReplicasetDetailComponent
+    ReplicasetDetailComponent,
   ],
   providers: [PodService, NamespaceService, {provide: MatPaginatorIntl, useValue: getDutchPaginatorIntl()}],
   entryComponents: [ApplicationButtonComponent, ApplicationDialogComponent, LogComponent]

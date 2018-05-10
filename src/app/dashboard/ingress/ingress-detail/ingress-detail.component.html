@@ -18,10 +18,47 @@
       </mat-list-item>
       <mat-list-item role="listitem">
         <div>
-          <span>路由策略：</span><span *ngFor="let rule of ingress.spec.rules">{{ rule.host}}: <span *ngFor="let path of rule.http.paths">
+          <span>路由策略：</span><span *ngFor="let rule of ingress.spec.rules; let i=index">[{{i}}]{{ rule.host}}:<span *ngFor="let path of rule.http.paths"> &nbsp;&nbsp;
           {{path.path}} -> 后端服务：{{path.backend.serviceName}}:{{path.backend.servicePort}}
         </span>
         </span>
+        </div>
+      </mat-list-item>
+      <mat-list-item role="listitem">
+        <div>
+          <span>地址：</span>
+          <ng-template></ng-template>
+          <span *ngFor="let rule of ingress.spec.rules">
+            <div *ngIf="rule.host; else elseBlock">
+            <span *ngFor="let path of rule.http.paths">
+          <a href="http://{{ rule.host}}:{{path.path}}">http://{{ rule.host}}{{path.path}}</a>;
+        </span>
+              </div>
+            <ng-template #elseBlock>
+            <span *ngFor="let path of rule.http.paths">
+          <a href="http://192.168.254.194:{{path.path}}">http://192.168.254.194{{path.path}}</a>;
+            </span>
+            </ng-template>
+          </span>
+          <!--<span *ngFor="let rule of ingress.spec.rules">-->
+          <!--<span *ngIf="rule.host; then thenBlock; else elseBlock"></span>-->
+          <!--<ng-template #thenBlock>-->
+            <!--<span *ngFor="let path of rule.http.paths">-->
+            <!--<a href="http://{{rule.host}}">{{rule.host}}-->
+              <!--<span *ngIf="path.path">:{{path}}</span>-->
+            <!--</a>-->
+            <!--</span>-->
+          <!--</ng-template>-->
+          <!--<ng-template #elseBlock>-->
+            <!--<a href="http://{{rule.host}}">{{rule.host}}</a>-->
+          <!--</ng-template>-->
+          <!--{{ rule.host}}:-->
+          <!--<span *ngFor="let path of rule.http.paths">-->
+          <!--{{path.path}} -> 后端服务：{{path.backend.serviceName}}:{{path.backend.servicePort}}-->
+        <!--</span>-->
+        <!--</span>-->
+          <!--<ng-template *ngFor="let url of Urls">{{url}}</ng-template>-->
+          <!--{{Urls}}-->
         </div>
       </mat-list-item>
       <mat-list-item role="listitem">
