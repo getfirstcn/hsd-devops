@@ -35,6 +35,7 @@ import {DaemonSetDetailComponent} from './daemon-sets/daemon-set-detail/daemon-s
 import {ReplicaSet} from './replica-sets/replica-set';
 import {ReplicaSetsComponent} from './replica-sets/replica-sets.component';
 import {ReplicasetDetailComponent} from './replica-sets/replicaset-detail/replicaset-detail.component';
+import {NodeDetailComponent} from './node/node-detail/node-detail.component';
 
 const routes: Routes = [
   {path: '', component: LayoutComponent,
@@ -69,6 +70,7 @@ const routes: Routes = [
   {path: 'namespace', component: NamespaceComponent},
   {path: 'namespace/:name', component: NamespaceDetailComponent},
   {path: 'nodes', component: NodeComponent},
+  {path: 'node/:name', component: NodeDetailComponent},
   {path: 'cluster', component: ClusterComponent},
   {path: '**', component: OverviewComponent}
   ]

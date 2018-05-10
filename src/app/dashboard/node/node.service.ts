@@ -3,15 +3,16 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {catchError, map, retry, tap} from 'rxjs/operators';
 import {Observable} from 'rxjs/Observable';
 import {Node, NodeList} from './node';
+import {V1Node, V1NodeList} from '../api';
 
 @Injectable()
 export class NodeService {
 
   constructor(private http: HttpClient) { }
   getNodeList(): Observable<any> {
-    return this.http.get<Node[]>('/api/v1/nodes')
+    return this.http.get<V1NodeList>('/api/v1/nodes');
   }
-  getNode(name: string): Observable<any> {
-    return this.http.get<Node>(`/api/v1/nodes/${name}`);
+  readeNode(name: string): Observable<V1Node> {
+    return this.http.get<V1Node>(`/api/v1/nodes/${name}`);
   }
 }
