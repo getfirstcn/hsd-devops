@@ -11,6 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { MonacoEditorComponent } from './monaco-editor/monaco-editor.component';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,7 +23,7 @@ import { MonacoEditorComponent } from './monaco-editor/monaco-editor.component';
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-    MonacoEditorModule.forRoot()
+    MonacoEditorModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -52,6 +52,7 @@ import { ConfigMapDetailComponent } from './config-maps/config-map-detail/config
 import { IngressDetailComponent } from './ingress/ingress-detail/ingress-detail.component';
 import { DaemonSetDetailComponent } from './daemon-sets/daemon-set-detail/daemon-set-detail.component';
 import { ReplicasetDetailComponent } from './replica-sets/replicaset-detail/replicaset-detail.component';
+import { DeploymentReplaceComponent } from './deployment/deployment-replace/deployment-replace.component';
 
 @NgModule({
   imports: [
@@ -103,6 +104,7 @@ import { ReplicasetDetailComponent } from './replica-sets/replicaset-detail/repl
     IngressDetailComponent,
     DaemonSetDetailComponent,
     ReplicasetDetailComponent,
+    DeploymentReplaceComponent,
   ],
   providers: [PodService, NamespaceService, {provide: MatPaginatorIntl, useValue: getDutchPaginatorIntl()}],
   entryComponents: [ApplicationButtonComponent, ApplicationDialogComponent, LogComponent]

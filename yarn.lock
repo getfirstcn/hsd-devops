@@ -171,6 +171,13 @@
   dependencies:
     tslib "^1.7.1"
 
+"@covalent/code-editor@^1.0.0":
+  version "1.0.0"
+  resolved "http://registry.npm.taobao.org/@covalent/code-editor/download/@covalent/code-editor-1.0.0.tgz#dd88560223796292fac903d3df8560c28d7ef34b"
+  dependencies:
+    monaco-editor "^0.10.1"
+    tslib "^1.7.1"
+
 "@kubernetes/client-node@^0.2.1":
   version "0.2.1"
   resolved "http://registry.npm.taobao.org/@kubernetes/client-node/download/@kubernetes/client-node-0.2.1.tgz#3c33d03eada44c5898e2cebe9b59098ab07179d1"
@@ -3697,7 +3704,7 @@ js-tokens@^3.0.0, js-tokens@^3.0.2:
   version "3.0.2"
   resolved "http://registry.npm.taobao.org/js-tokens/download/js-tokens-3.0.2.tgz#9866df395102130e38f7f996bceb65443209c25b"
 
-js-yaml@^3.4.3, js-yaml@^3.5.2, js-yaml@^3.7.0:
+js-yaml@^3.11.0, js-yaml@^3.4.3, js-yaml@^3.5.2, js-yaml@^3.7.0:
   version "3.11.0"
   resolved "http://registry.npm.taobao.org/js-yaml/download/js-yaml-3.11.0.tgz#597c1a8bd57152f26d622ce4117851a51f5ebaef"
   dependencies:
@@ -4331,6 +4338,14 @@ module-deps@^4.0.8:
     through2 "^2.0.0"
     xtend "^4.0.0"
 
+monaco-editor@^0.10.1:
+  version "0.10.1"
+  resolved "http://registry.npm.taobao.org/monaco-editor/download/monaco-editor-0.10.1.tgz#8c96c4f15b6b5258bf92cbde93cad8a7e3007e14"
+
+monaco-editor@^0.12.0:
+  version "0.12.0"
+  resolved "http://registry.npm.taobao.org/monaco-editor/download/monaco-editor-0.12.0.tgz#cd8621017526b57746245104d764bbf52ad42283"
+
 move-concurrently@^1.0.1:
   version "1.0.1"
   resolved "http://registry.npm.taobao.org/move-concurrently/download/move-concurrently-1.0.1.tgz#be2c005fda32e0b29af1f05d7c4b33214c701f92"
@@ -4397,6 +4412,10 @@ netmask@~1.0.4:
 next-tick@1:
   version "1.0.0"
   resolved "http://registry.npm.taobao.org/next-tick/download/next-tick-1.0.0.tgz#ca86d1fe8828169b0120208e3dc8424b9db8342c"
+
+ngx-monaco-editor@^4.1.1:
+  version "4.1.1"
+  resolved "http://registry.npm.taobao.org/ngx-monaco-editor/download/ngx-monaco-editor-4.1.1.tgz#091acb220c29754f75e75de0788c47c924b91d8a"
 
 no-case@^2.2.0:
   version "2.3.2"
@@ -6672,13 +6691,13 @@ typedarray@^0.0.6, typedarray@~0.0.5:
   version "0.0.6"
   resolved "http://registry.npm.taobao.org/typedarray/download/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
 
-typescript@~2.5.3:
-  version "2.5.3"
-  resolved "http://registry.npm.taobao.org/typescript/download/typescript-2.5.3.tgz#df3dcdc38f3beb800d4bc322646b04a3f6ca7f0d"
-
 typescript@~2.6.2:
   version "2.6.2"
   resolved "http://registry.npm.taobao.org/typescript/download/typescript-2.6.2.tgz#3c5b6fd7f6de0914269027f03c0946758f7673a4"
+
+typescript@~2.8.1:
+  version "2.8.3"
+  resolved "http://registry.npm.taobao.org/typescript/download/typescript-2.8.3.tgz#5d817f9b6f31bb871835f4edf0089f21abe6c170"
 
 uglify-es@^3.3.4:
   version "3.3.9"
