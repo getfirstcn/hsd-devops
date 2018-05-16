@@ -1,0 +1,23 @@
+<!--<ngx-monaco-editor class="my-code-editor" [options]="editorOptions" [(ngModel)]="code"></ngx-monaco-editor>-->
+<!--<div mat-dialog-actions>-->
+  <!--<button mat-button color="warn" mat-dialog-close>取消</button>-->
+  <!--<button mat-button color="primary" [mat-dialog-close]="true" cdkFocusInitial>确定</button>-->
+<!--</div>-->
+<mat-horizontal-stepper [linear]=false #stepper>
+  <mat-step>
+      <ng-template matStepLabel>第一步应用</ng-template>
+    <ngx-monaco-editor class="my-code-editor" [options]="editorOptions" [(ngModel)]="deployment"></ngx-monaco-editor>
+  </mat-step>
+  <mat-step>
+      <ng-template matStepLabel>第二部服务</ng-template>
+    <ngx-monaco-editor class="my-code-editor" [options]="editorOptions" [(ngModel)]="service"></ngx-monaco-editor>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>第三步网关</ng-template>
+    <ngx-monaco-editor class="my-code-editor" [options]="editorOptions" [(ngModel)]="ingress"></ngx-monaco-editor>
+  </mat-step>
+</mat-horizontal-stepper>
+<div mat-dialog-actions class="button-yaml">
+<button mat-button color="warn" class="button-cancel" mat-dialog-close>取消</button>
+<button mat-button color="primary" (click)="create()" class="button-commit" [mat-dialog-close]="true" cdkFocusInitial>确定</button>
+</div>

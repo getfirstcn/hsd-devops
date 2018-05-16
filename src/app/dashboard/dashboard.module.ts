@@ -53,6 +53,9 @@ import { IngressDetailComponent } from './ingress/ingress-detail/ingress-detail.
 import { DaemonSetDetailComponent } from './daemon-sets/daemon-set-detail/daemon-set-detail.component';
 import { ReplicasetDetailComponent } from './replica-sets/replicaset-detail/replicaset-detail.component';
 import { DeploymentReplaceComponent } from './deployment/deployment-replace/deployment-replace.component';
+import { ServiceReplaceComponent } from './service/service-replace/service-replace.component';
+import { IngressReplaceComponent } from './ingress/ingress-replace/ingress-replace.component';
+import { ApplicationYamlComponent } from './application/application-yaml/application-yaml.component';
 
 @NgModule({
   imports: [
@@ -105,8 +108,11 @@ import { DeploymentReplaceComponent } from './deployment/deployment-replace/depl
     DaemonSetDetailComponent,
     ReplicasetDetailComponent,
     DeploymentReplaceComponent,
+    ServiceReplaceComponent,
+    IngressReplaceComponent,
+    ApplicationYamlComponent,
   ],
   providers: [PodService, NamespaceService, {provide: MatPaginatorIntl, useValue: getDutchPaginatorIntl()}],
-  entryComponents: [ApplicationButtonComponent, ApplicationDialogComponent, LogComponent]
+  entryComponents: [ApplicationButtonComponent, ApplicationDialogComponent, LogComponent, IngressReplaceComponent, ApplicationYamlComponent]
 })
 export class DashboardModule { }

@@ -17,7 +17,8 @@ import {
   MatStepperModule,
   MatInputModule,
   MatSelectModule,
-  MatTooltipModule
+  MatTooltipModule,
+  MatExpansionModule
 
 } from '@angular/material';
 
@@ -39,7 +40,8 @@ import {
     MatStepperModule,
     MatInputModule,
     MatSelectModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatExpansionModule
   ],
   exports: [
     MatButtonModule,
@@ -57,7 +59,8 @@ import {
     MatStepperModule,
     MatInputModule,
     MatSelectModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatExpansionModule
   ],
   declarations: []
 })

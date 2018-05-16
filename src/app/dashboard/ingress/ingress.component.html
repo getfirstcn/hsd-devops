@@ -51,13 +51,9 @@
             <mat-icon>chevron_left</mat-icon>
             <span>删除</span>
           </button>
-          <button mat-menu-item>
+          <button mat-menu-item (click)="replaceIngress(element.metadata.namespace,element.metadata.name)">
             <mat-icon>chevron_left</mat-icon>
-            <span>删除</span>
-          </button>
-          <button mat-menu-item>
-            <mat-icon>chevron_left</mat-icon>
-            <span>删除</span>
+            <span>修改</span>
           </button>
         </mat-menu>
       </mat-cell>

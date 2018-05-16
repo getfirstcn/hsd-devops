@@ -1,8 +1,9 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {MatPaginator, MatTableDataSource} from '@angular/material';
+import {MatDialog, MatPaginator, MatTableDataSource} from '@angular/material';
 import {ServiceService} from './service.service';
 import {Router} from '@angular/router';
 import {NamespaceService} from '../namespace/namespace.service';
+import {ServiceReplaceComponent} from './service-replace/service-replace.component';
 
 @Component({
   selector: 'app-service',
@@ -11,15 +12,15 @@ import {NamespaceService} from '../namespace/namespace.service';
   providers: [ServiceService]
 })
 export class ServiceComponent implements OnInit, AfterViewInit {
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   displayedColumns = ['name', 'namespace', 'label', 'clusterIP', 'internalEndpoint', 'externalEndpoint', 'createDate'];
   dataSource = new MatTableDataSource();
 
   constructor(
     private serviceService: ServiceService,
     private router: Router,
-    private ns: NamespaceService) {}
-
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+    private ns: NamespaceService,
+    public dialog: MatDialog) {}
 
   ngAfterViewInit() {
     this.updateService();
@@ -58,6 +59,19 @@ export class ServiceComponent implements OnInit, AfterViewInit {
         list => {this.dataSource.data = list; console.log('update services', list); }
       );
     });
+  }
+  replaceService(namespace: string, name: string) {
+    this.serviceService.getservice(namespace, name)
+      .subscribe(resp => {
+        const dialogRef = this.dialog.open(ServiceReplaceComponent, {
+          height: 'calc(90vh)',
+          width: 'calc(100vw - 100px)',
+          data: resp
+        });
+        dialogRef.afterClosed().subscribe(result => {
+          console.log(`Dialog result: ${result}`);
+        });
+      });
   }
 }
 

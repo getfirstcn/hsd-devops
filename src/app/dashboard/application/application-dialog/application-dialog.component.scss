@@ -20,4 +20,18 @@
 .dialog-container-object > * {
   width: 25%;
 }
+.button-yaml {
 
+  left: 80%;
+  display: inline-block;
+}
+.dialog-stepper {
+  height: 800px;
+  overflow:auto;
+}
+.button-dialog-commit {
+  left: 80%;
+}
+.button-dialog-cancel {
+  left: 80%;
+}

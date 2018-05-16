@@ -28,6 +28,8 @@ import {
 import {ApplicationService} from '../application.service';
 import {ServiceService} from '../../service/service.service';
 import {IngressService} from '../../ingress/ingress.service';
+import {MatDialog} from '@angular/material';
+import {ApplicationYamlComponent} from '../application-yaml/application-yaml.component';
 
 @Component({
   selector: 'app-application-dialog',
@@ -49,7 +51,8 @@ export class ApplicationDialogComponent implements OnInit, OnChanges {
     private app: ApplicationService,
     private router: Router,
     private service: ServiceService,
-    private ingress: IngressService) {
+    private ingress: IngressService,
+    public dialog: MatDialog) {
     this.createForm();
   }
 
@@ -328,5 +331,15 @@ export class ApplicationDialogComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
+  }
+  openYamlDialog() {
+    const dialogRef = this.dialog.open(ApplicationYamlComponent, {
+      height: '900px',
+      width: '1400px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`会话框状态：${result}`);
+    });
   }
 }

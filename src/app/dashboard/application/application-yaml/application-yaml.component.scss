@@ -1,6 +1,6 @@
 .my-code-editor {
   .editorContainer {
-    height: calc(100vh);
+    height: calc(70vh);
     //height: 100%;
   }
 }
@@ -10,5 +10,13 @@
 //   width: 100%;
 // }
 .my-code-editor {
-  height: calc(100vh);
+  height: calc(74vh);
+}
+.button-yaml {
+}
+.button-commit {
+  left: 80%;
+}
+.button-cancel {
+  left: 80%;
 }

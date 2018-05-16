@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
 import {catchError, map, retry, tap} from 'rxjs/operators';
 import {Observable} from 'rxjs/Observable';
 import {of} from 'rxjs/observable/of';
@@ -34,6 +34,10 @@ export class ServiceService {
   }
   deleteService(namespace: string, name: string): Observable<V1Status> {
     return this.http.delete<V1Status>(`/api/v1/namespaces/${namespace}/services/${name}`);
+  }
+
+  replaceService(namespace: string, name: string, body: V1Service): Observable<HttpResponse<V1Service>> {
+    return this.http.put<V1Service>(`/api/v1/namespaces/${namespace}/services/${name}`, body, { observe: 'response'});
   }
 
   private handleError<T> (operation = 'operation', result?: T) {

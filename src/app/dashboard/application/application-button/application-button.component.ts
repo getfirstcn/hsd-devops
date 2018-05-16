@@ -12,7 +12,7 @@ export class ApplicationButtonComponent implements OnInit {
   constructor(public dialog: MatDialog) { }
   openDialog() {
     const dialogRef = this.dialog.open(ApplicationDialogComponent, {
-      height: '800px',
+      height: '900px',
       width: '1400px'
     });
 

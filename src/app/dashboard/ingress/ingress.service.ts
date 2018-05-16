@@ -25,4 +25,9 @@ export class IngressService {
     const namespace = body.metadata.namespace;
     return this.http.post<V1beta1Ingress>(`/apis/extensions/v1beta1/namespaces/${namespace}/ingresses`, body);
   }
+  replaceIngress(body: V1beta1Ingress): Observable<V1beta1Ingress> {
+    const namespace = body.metadata.namespace;
+    const name = body.metadata.name;
+    return this.http.put<V1beta1Ingress>(`/apis/extensions/v1beta1/namespaces/${namespace}/ingresses/${name}`, body);
+  }
 }

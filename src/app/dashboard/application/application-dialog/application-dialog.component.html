@@ -1,5 +1,9 @@
-<h2 mat-dialog-title>创建应用</h2>
-<mat-horizontal-stepper #stepper="matHorizontalStepper">
+<!--<div class="button-row">-->
+<!--<button mat-raised-button disabled>表单</button>-->
+  <!--<button mat-raised-button [mat-dialog-close]="true" (click)="openYamlDialog()"  type="button">yaml文本</button>-->
+<!--</div>-->
+<!--<mat-divider></mat-divider>-->
+<mat-horizontal-stepper #stepper="matHorizontalStepper" class="dialog-stepper">
   <mat-step>
     <form class="app-form" [formGroup]="appForm" class="form-full-width">
     <ng-template matStepLabel>应用</ng-template>
@@ -234,6 +238,7 @@
     <!--</form>-->
   </mat-step>
 </mat-horizontal-stepper>
+
 <!--<p>appForm value: {{ appForm.value | json }}</p>-->
 <!--<p>appForm status: {{ appForm.status | json }}</p>-->
 <!--<p>containerForm value: {{ containerForm.value | json }}</p>-->
@@ -242,6 +247,8 @@
 <!--<p>ingressForm value: {{ ingressForm.value | json }}</p>-->
 <!--<p>containerForm status: {{ containerForm.status | json }}</p>-->
 <div mat-dialog-actions>
-  <button mat-button color="warn" mat-dialog-close>取消</button>
-  <button mat-button color="primary" (click)="submit()" [mat-dialog-close]="true" cdkFocusInitial>确定</button>
+  <button mat-raised-button [mat-dialog-close]="true" (click)="openYamlDialog()"  type="button" color="primary">YML文件</button>
+  <button mat-button color="warn" class="button-dialog-cancel" mat-dialog-close>取消</button>
+  <button mat-button color="primary" (click)="submit()" [mat-dialog-close]="true" class="button-dialog-commit" cdkFocusInitial>确定</button>
 </div>
+

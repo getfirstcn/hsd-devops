@@ -37,6 +37,7 @@ import {ReplicaSetsComponent} from './replica-sets/replica-sets.component';
 import {ReplicasetDetailComponent} from './replica-sets/replicaset-detail/replicaset-detail.component';
 import {NodeDetailComponent} from './node/node-detail/node-detail.component';
 import {DeploymentReplaceComponent} from './deployment/deployment-replace/deployment-replace.component';
+import {ServiceReplaceComponent} from './service/service-replace/service-replace.component';
 
 const routes: Routes = [
   {path: '', component: LayoutComponent,
@@ -48,6 +49,7 @@ const routes: Routes = [
   {path: 'deployments', component: DeploymentComponent},
   {path: 'deployment/:namespace/:name', component: DeploymentDetailComponent},
   {path: 'deploymentreplace', component: DeploymentReplaceComponent},
+  {path: 'servicereplace', component: ServiceReplaceComponent},
   {path: 'services', component: ServiceComponent},
   {path: 'service/:namespace/:name', component: ServiceDetailComponent},
   {path: 'ingresses', component: IngressComponent},

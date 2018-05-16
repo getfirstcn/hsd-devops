@@ -1,7 +1,9 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {MatPaginator, MatTableDataSource} from '@angular/material';
+import {MatDialog, MatPaginator, MatTableDataSource} from '@angular/material';
 import {NamespaceService} from '../namespace/namespace.service';
 import {IngressService} from './ingress.service';
+import {Router} from '@angular/router';
+import {IngressReplaceComponent} from './ingress-replace/ingress-replace.component';
 
 @Component({
   selector: 'app-ingress',
@@ -15,7 +17,9 @@ export class IngressComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private ns: NamespaceService,
-              private ingressService: IngressService) { }
+              private ingressService: IngressService,
+              private router: Router,
+              public dialog: MatDialog) { }
 
   ngOnInit() {
     this.initIngress();
@@ -61,5 +65,14 @@ export class IngressComponent implements OnInit, AfterViewInit {
     filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
     this.dataSource.filter = filterValue;
   }
-
+  replaceIngress(namespace: string, name: string) {
+    this.ingressService.readIngrees(namespace, name)
+      .subscribe(resp => {
+        const dialogRef = this.dialog.open(IngressReplaceComponent, {
+          height: 'calc(90vh)',
+          width: 'calc(100vw - 100px)',
+          data: resp
+        });
+      });
+  }
 }
