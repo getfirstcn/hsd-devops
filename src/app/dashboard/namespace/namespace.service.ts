@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {catchError, map, retry, tap} from 'rxjs/operators';
-import {Observable} from 'rxjs/Observable';
+import {Observable, of, Subject} from 'rxjs';
 import {Namespace, NamespaceList} from './namespace';
-import {of} from 'rxjs/observable/of';
-import {Subject} from 'rxjs/Subject';
 
 
 @Injectable()

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {V1beta1Ingress, V1beta1IngressList, V1Status} from '../api';
 import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 
 @Injectable()
 export class IngressService {

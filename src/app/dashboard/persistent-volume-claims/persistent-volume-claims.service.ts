@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {PersistentVolumeClaim, V1Status} from './persistent-volume-claims';
 import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import {tap} from 'rxjs/operators';
 
 @Injectable()

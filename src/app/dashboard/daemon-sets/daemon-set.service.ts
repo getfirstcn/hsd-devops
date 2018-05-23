@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import {V1beta1DaemonSet, V1beta1DaemonSetList, V1Status} from '../api';
 
 
