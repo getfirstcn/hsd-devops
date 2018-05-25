@@ -1,18 +1,35 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DashboardMainComponent } from './dashboard-main/dashboard-main.component';
-import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule, MatToolbarModule, MatSidenavModule, MatListModule } from '@angular/material';
+import {AppRoutingModule } from './app-routing.module';
+import {
+  MatGridListModule,
+  MatCardModule,
+  MatMenuModule,
+  MatIconModule,
+  MatButtonModule,
+  MatToolbarModule,
+  MatSidenavModule,
+  MatListModule,
+  MatTableModule,
+  MatPaginatorModule,
+  MatSortModule,
+  MatSelectModule
+} from '@angular/material';
 import { AppNavComponent } from './app-nav/app-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
+import { AppTableComponent } from './app-table/app-table.component';
+import { AppMainComponent } from './app-main/app-main.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    DashboardMainComponent,
     AppNavComponent,
+    AppTableComponent,
+    AppMainComponent,
 
   ],
   imports: [
@@ -27,6 +44,12 @@ import { LayoutModule } from '@angular/cdk/layout';
     MatToolbarModule,
     MatSidenavModule,
     MatListModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    RouterModule,
+    MatSelectModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

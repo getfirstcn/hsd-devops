@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'dashboard-main',
-  templateUrl: './dashboard-main.component.html',
-  styleUrls: ['./dashboard-main.component.css']
+  selector: 'app-main',
+  templateUrl: './app-main.component.html',
+  styleUrls: ['./app-main.component.css']
 })
-export class DashboardMainComponent {
+export class AppMainComponent {
   cards = [
     { title: 'Card 1', cols: 2, rows: 1 },
     { title: 'Card 2', cols: 1, rows: 1 },
