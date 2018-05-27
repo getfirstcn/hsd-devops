@@ -14,6 +14,7 @@ const routes: Routes = [
     {path: '', component: AppMainComponent}
   ],
   },
+  {path: '', redirectTo: 'k8s', pathMatch: 'full'}
   // {path: 'namespace', loadChildren: () => NamespaceModule },
   // {path: 'deployments', loadChildren : () => DeploymentsModule},
 ];

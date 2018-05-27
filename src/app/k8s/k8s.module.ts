@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {DeploymentsModule} from './deployments/deployments.module';
+import { KvPipe } from './pipes/kv.pipe';
+import { LabelPipe } from './pipes/label.pipe';
 
 @NgModule({
   imports: [
     CommonModule,
-    DeploymentsModule
   ],
-  declarations: []
+  declarations: [KvPipe, LabelPipe],
+  exports: [KvPipe, LabelPipe]
 })
 export class K8sModule { }

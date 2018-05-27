@@ -1,0 +1,30 @@
+.deployment-icon-btn {
+  //display: inline-block;
+  position: relative;
+  //vertical-align: middle;
+  border: none;
+  background-color: white;
+  //min-width: 0;
+  right: 0px;
+}
+
+.deployment-icon-btn * {
+  float: right;
+}
+
+.main-container {
+  margin: 20px;
+}
+
+.deployments-time {
+  float: left;
+}
+
+.deployments-image {
+  position: relative;
+  display: block;
+  float: left;
+}
+.deployment-cell {
+  justify-content: space-between;
+}
