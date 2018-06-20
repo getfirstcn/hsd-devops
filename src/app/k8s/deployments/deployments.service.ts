@@ -38,4 +38,6 @@ export class DeploymentsService {
     const name = body.metadata.name;
     return this.http.put<V1beta2Deployment>(`/apis/apps/v1/namespaces/${namespace}/deployments/${name}`, body, { observe: 'response' });
   }
+
+
 }

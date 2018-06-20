@@ -1,0 +1,248 @@
+<mat-horizontal-stepper #stepper="matHorizontalStepper" class="dialog-stepper">
+  <mat-step>
+    <form class="app-form" [formGroup]="appForm" class="form-full-width">
+      <ng-template matStepLabel>应用</ng-template>
+      <div class="form-group">
+        <div class="dialog-container">
+          <mat-form-field>
+            <input matInput formControlName="name" placeholder="名称">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="dialog-container">
+          <mat-form-field>
+            <input matInput formControlName="namespace" placeholder="命名空间">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="dialog-container">
+          <mat-form-field>
+            <input matInput type="number" formControlName="replicas" placeholder="副本数">
+          </mat-form-field>
+        </div>
+      </div>
+      <div formGroupName="labels" class="well well-lg">
+        <h4>标签:</h4>
+        <div class="form-group">
+          <div class="dialog-container-object">
+            <mat-form-field>
+              <input matInput type="text" formControlName="key" placeholder="名称">
+              <!--<span matSuffix>: &nbsp;</span>-->
+            </mat-form-field>&nbsp;
+            <mat-form-field>
+              <!--<span matSuffix>: &nbsp;</span>-->
+              <input matInput type="text" formControlName="value" placeholder="内容">
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step>
+    <form [formGroup]="containerForm">
+      <ng-template matStepLabel>容器</ng-template>
+      <div formArrayName="containers" class="well well-lg">
+        <div *ngFor="let c of containers.controls; let i=index" [formGroupName]="i">
+          <h4>容器 #{{i + 1}}</h4>
+          <div class="form-group">
+            <div class="dialog-container">
+              <mat-form-field>
+                <!--<span matSuffix>: &nbsp;</span>-->
+                <input matInput type="text" formControlName="name" placeholder="名称">
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="dialog-container">
+              <mat-form-field>
+                <!--<span matSuffix>: &nbsp;</span>-->
+                <input matInput type="text" formControlName="image" placeholder="镜像">
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="dialog-container">
+              <mat-form-field>
+                <!--<span matSuffix>: &nbsp;</span>-->
+                <input matInput type="text" formControlName="command" placeholder="命令">
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="dialog-container">
+              <mat-form-field>
+                <input matInput type="text" formControlName="args" placeholder="参数">
+              </mat-form-field>
+            </div>
+          </div>
+          <br>
+        </div>
+        <button mat-fab color="primary" (click)="addContainer()" type="button">增加容器</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step>
+    <form [formGroup]="envForm">
+      <ng-template matStepLabel>环境变量</ng-template>
+      <div formArrayName="env">
+        <div *ngFor="let e of env.controls; let i=index" [formGroupName]="i">
+          <h4>变量 #{{ i + 1 }}</h4>
+          <div class="form-group">
+            <div class="dialog-container-object">
+              <mat-form-field>
+                <input matInput type="text" formControlName="name" placeholder="名">
+              </mat-form-field>
+              &nbsp;
+              <mat-form-field>
+                <input matInput type="text" formControlName="value" placeholder="值">
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <button mat-fab color="primary" (click)="addEnv()" type="button">添加变量</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step>
+    <form [formGroup]="serviceForm">
+      <ng-template matStepLabel>服务</ng-template>
+      <div class="form-group">
+        <div class="dialog-container">
+          <mat-form-field>
+            <mat-select placeholder="类型" formControlName="type">
+              <mat-option *ngFor="let type of serviceTypes" [value]="type">
+                {{type}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div formArrayName="ports">
+        <div *ngFor="let p of ports.controls; let i=index;" [formGroupName]="i">
+          <h4>端口 #{{ i + 1 }}</h4>
+          <div class="form-group">
+            <div class="dialog-container">
+              <mat-form-field>
+                <input matInput type="text" formControlName="name" placeholder="名称">
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="dialog-container">
+              <mat-form-field>
+                <input matInput type="number" formControlName="port" placeholder="端口">
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="dialog-container">
+              <mat-form-field>
+                <mat-select placeholder="协议" formControlName="protocol">
+                  <mat-option value="TCP" selected>
+                    TCP
+                  </mat-option>
+                  <mat-option value="UDP">
+                    UDP
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="dialog-container">
+              <mat-form-field>
+                <input matInput type="number" formControlName="targetPort" placeholder="目标端口">
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <button mat-fab color="primary" (click)="addPort()" type="button">添加端口</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step>
+    <form [formGroup]="ingressForm">
+      <ng-template matStepLabel>入口</ng-template>
+      <div class="form-group">
+        <div class="dialog-container">
+          <mat-form-field>
+            <input matInput type="text" formControlName="host" placeholder="主机">
+          </mat-form-field>
+        </div>
+      </div>
+      <div formArrayName="http">
+        <div *ngFor="let r of http.controls; let i=index;" [formGroupName]="i">
+          <h4>策略 #{{ i + 1 }}</h4>
+          <div class="form-group">
+            <div class="dialog-container">
+              <mat-form-field>
+                <input matInput type="text" formControlName="path" placeholder="路径">
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="dialog-container">
+              <mat-form-field>
+                <input matInput type="text" formControlName="serviceName" placeholder="服务名">
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="dialog-container">
+              <mat-form-field>
+                <input matInput type="number" formControlName="servicePort" placeholder="服务端口">
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <button mat-fab color="primary" (click)="addhttp()" type="button">添加策略</button>
+    <!--<form [formGroup]="pathForm">-->
+    <!--<div formArrayName="paths">-->
+    <!--<div *ngFor="let p of paths.controls; let i=index;" [formGroupName]="i">-->
+    <!--<h5>路径 #{{ i + 1 }}</h5>-->
+    <!--<div class="form-group">-->
+    <!--<div class="dialog-container">-->
+    <!--<mat-form-field>-->
+    <!--<input matInput type="text" formControlName="path" placeholder="路径">-->
+    <!--</mat-form-field>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<div formGroupName="backend">-->
+    <!--<div class="form-group">-->
+    <!--<div class="dialog-container">-->
+    <!--<mat-form-field>-->
+    <!--<input matInput type="text" formControlName="serviceName" placeholder="服务名">-->
+    <!--</mat-form-field>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<div class="form-group">-->
+    <!--<div class="dialog-container">-->
+    <!--<mat-form-field>-->
+    <!--<input matInput type="text" formControlName="servicePort" placeholder="服务端口">-->
+    <!--</mat-form-field>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<button mat-fab color="primary" (click)="addPath()" type="button">添加路径</button>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</form>-->
+  </mat-step>
+</mat-horizontal-stepper>
+
+<!--<p>appForm value: {{ appForm.value | json }}</p>-->
+<!--<p>appForm status: {{ appForm.status | json }}</p>-->
+<!--<p>containerForm value: {{ containerForm.value | json }}</p>-->
+<!--<p>envForm value: {{ envForm.value | json }}</p>-->
+<!--<p>serviceForm value: {{ serviceForm.value | json }}</p>-->
+<!--<p>ingressForm value: {{ ingressForm.value | json }}</p>-->
+<!--<p>containerForm status: {{ containerForm.status | json }}</p>-->
+<div mat-dialog-actions>
+  <button mat-raised-button [mat-dialog-close]="true" (click)="openYamlDialog()"  type="button" color="primary">YML文件</button>
+  <button mat-button color="warn" class="button-dialog-cancel" mat-dialog-close>取消</button>
+  <button mat-button color="primary" (click)="submit()" [mat-dialog-close]="true" class="button-dialog-commit" cdkFocusInitial>确定</button>
+</div>

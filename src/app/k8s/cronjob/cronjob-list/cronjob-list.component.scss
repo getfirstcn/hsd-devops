@@ -1,0 +1,10 @@
+mat-card {
+  margin: 20px;
+}
+
+.titleAndFilter * {
+  display: inline-block;
+}
+.titleAndFilter input,mat-icon,mat-form-field {
+  float: right;
+}

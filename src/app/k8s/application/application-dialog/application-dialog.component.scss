@@ -1,0 +1,37 @@
+.application-dialog-content{
+  width: 1400px;
+}
+.app-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.dialog-container {
+  display: flex;
+  flex-direction: column;
+}
+.dialog-container > * {
+  width: 50%;
+}
+.dialog-container-object {
+  display: flex;
+}
+.dialog-container-object > * {
+  width: 25%;
+}
+.button-yaml {
+
+  left: 80%;
+  display: inline-block;
+}
+.dialog-stepper {
+  height: 800px;
+  overflow:auto;
+}
+.button-dialog-commit {
+  left: 80%;
+}
+.button-dialog-cancel {
+  left: 80%;
+}

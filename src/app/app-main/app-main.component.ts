@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {NgCodeEditorModule} from 'ng-code-editor';
 
 @Component({
   selector: 'app-main',

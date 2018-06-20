@@ -5,7 +5,7 @@ import {NamespaceDetailComponent} from './namespace-detail/namespace-detail.comp
 
 const namespaceRoutes: Routes = [
   {path: '', component: NamespacesAllComponent},
-  {path: 'detail', component: NamespaceDetailComponent}
+  {path: ':name', component: NamespaceDetailComponent}
 ];
 
 @NgModule({

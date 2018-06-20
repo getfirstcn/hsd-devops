@@ -1,0 +1,38 @@
+<mat-card class="deployment-detail-card">
+  <mat-card-header>
+    <div mat-card-avatar class="deployment-detail-header-image"></div>
+    <mat-card-title><h3>配置数据</h3></mat-card-title>
+  </mat-card-header>
+  <mat-divider></mat-divider>
+  <mat-card-content *ngIf="configmap">
+    <mat-list role="list">
+      <mat-list-item>
+        <div>
+          <span>名称：</span><span>{{ configmap.metadata.name }}</span>
+        </div>
+      </mat-list-item>
+      <mat-list-item>
+        <div>
+          <span>命名空间：</span><span>{{ configmap.metadata.namespace }}</span>
+        </div>
+      </mat-list-item>
+
+      <mat-list-item role="listitem">
+        <div>
+          <span>创建时间：</span><span>{{ configmap.metadata.creationTimestamp | date: 'yyyy-MM-dd HH:mm:ss' }}</span>
+        </div>
+      </mat-list-item>
+
+      <mat-list-item>
+        <div>
+          <span>数据：</span><span>{{ configmap.data | kv }}</span>
+        </div>
+      </mat-list-item>
+
+    </mat-list>
+  </mat-card-content>
+</mat-card>
+<mat-divider></mat-divider>
+
+<!--<app-pod-with-label [label]="service.metadata.labels | label" [namespace]="service.metadata.namespace"></app-pod-with-label>-->
+

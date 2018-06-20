@@ -1,8 +1,8 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {V1beta2DeploymentList} from '../../api';
-import {MatDialog, MatPaginator, MatTableDataSource} from '@angular/material';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {V1beta2Deployment, V1beta2DeploymentList, V1beta2DeploymentStatus, V1Container, V1LabelSelector, V1Status} from '../../api';
+import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {DeploymentsService} from '../deployments.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {DeploymentReplaceComponent} from '../deployment-replace/deployment-replace.component';
 
 
@@ -12,21 +12,32 @@ import {DeploymentReplaceComponent} from '../deployment-replace/deployment-repla
   styleUrls: ['./deployments-all.component.scss'],
   providers: [DeploymentsService]
 })
-export class DeploymentsAllComponent implements OnInit {
+export class DeploymentsAllComponent implements OnInit, AfterViewInit {
   displayedColumns = ['name', 'namespace', 'label', 'pods', 'image', 'createDate'];
   deployments: V1beta2DeploymentList;
+  length: number;
+  DATA: DeploymentsItems[];
+  value = '';
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
   dataSource = new MatTableDataSource();
-
   constructor(
     private deploymentsService: DeploymentsService,
     public dialog: MatDialog,
-    private route: ActivatedRoute
-  ) { }
+    private route: ActivatedRoute,
+    private router: Router
+  ) {
+  }
 
   ngOnInit() {
     this.initDeployments();
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+  ngAfterViewInit() {
+    this.updateDeployments();
+    // this.dataSource.paginator = this.paginator;
   }
 
   applyFilter(filterValue: string) {
@@ -37,10 +48,51 @@ export class DeploymentsAllComponent implements OnInit {
 
   initDeployments() {
     const namespace = this.route.snapshot.queryParams.namespace;
+    this.route.queryParams.subscribe(params => {
+      console.log('这个', params);
+    });
     this.deploymentsService.listDeployments(namespace)
       .subscribe(data => {
-        this.dataSource = data.items;
+        this.dataSource.data = this.generatorDeploymentsField(data.items);
+        console.log('长度', this.dataSource);
+        this.length = data.items.length;
       });
+  }
+
+  generatorDeploymentsField(list: Array<V1beta2Deployment>): Array<DeploymentsItems> {
+    const columns: DeploymentsItems[] = [];
+    for (const i of list) {
+      const column = {
+        'name': i.metadata.name,
+        'namespace': i.metadata.namespace,
+        'label': i.metadata.labels,
+        'pods': i.status,
+        'image': i.spec.template.spec.containers,
+        'createDate': i.metadata.creationTimestamp,
+      };
+      columns.push(column);
+    }
+    return columns;
+  }
+  generatorContainersField(list: V1Container[]): ContainerItems[] {
+    const columns: ContainerItems[] = [];
+    for (const i of list) {
+      const column: ContainerItems = {'name': '', 'image': ''};
+      column.name = i.name;
+      columns.push(column);
+    }
+    return columns;
+  }
+  updateDeployments() {
+    this.route.queryParams.subscribe(params => {
+      this.deploymentsService.listDeployments(params.namespace)
+        .subscribe(data => {
+          console.log('gengxin', data);
+          this.dataSource.data = this.generatorDeploymentsField(data.items);
+          console.log('数据源', this.dataSource)
+          this.length = data.items.length;
+        });
+    });
   }
 
   deleteDeployment(namespace: string, name: string) {
@@ -67,5 +119,18 @@ export class DeploymentsAllComponent implements OnInit {
         });
       });
   }
-
 }
+
+export interface DeploymentsItems {
+  name: string;
+  namespace: string;
+  label: { [key: string]: string; };
+  pods: V1beta2DeploymentStatus;
+  image: V1Container[];
+  createDate: Date;
+}
+export interface ContainerItems {
+  name: string;
+  image: string;
+}
+

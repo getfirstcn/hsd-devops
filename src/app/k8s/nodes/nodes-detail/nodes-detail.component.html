@@ -1,0 +1,41 @@
+<mat-card class="deployment-detail-card">
+  <mat-card-header>
+    <div mat-card-avatar class="deployment-detail-header-image"></div>
+    <mat-card-title><h3>节点{{node.metadata.name}}</h3></mat-card-title>
+  </mat-card-header>
+  <mat-divider></mat-divider>
+  <mat-card-content *ngIf="node">
+    <mat-list role="list">
+      <mat-list-item>
+        <div>
+          <span>名称：</span><span>{{ node.metadata.name }}</span>
+        </div>
+      </mat-list-item>
+      <mat-list-item role="listitem">
+        <div>
+          <span>创建时间：</span><span>{{ node.metadata.creationTimestamp | date: 'yyyy-MM-dd HH:mm:ss' }}</span>
+        </div>
+      </mat-list-item>
+      <mat-list-item role="listitem">
+        <div>
+          <span>容器网络：</span><span>{{ node.spec.podCIDR }}</span>
+        </div>
+      </mat-list-item>
+      <mat-list-item role="listitem">
+        <div>
+          <span>系统：</span><span>{{ node.status.nodeInfo.osImage }}</span>
+        </div>
+      </mat-list-item>
+      <mat-list-item role="listitem">
+        <div>
+          <span>docker版本：</span><span>{{ node.status.nodeInfo.containerRuntimeVersion }}</span>
+        </div>
+      </mat-list-item>
+      <mat-list-item role="listitem">
+        <div>
+          <span>kubernetes版本：</span><span>{{ node.status.nodeInfo.kubeletVersion }}</span>
+        </div>
+      </mat-list-item>
+    </mat-list>
+  </mat-card-content>
+</mat-card>

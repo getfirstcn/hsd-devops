@@ -28,3 +28,14 @@
 .deployment-cell {
   justify-content: space-between;
 }
+
+.titleAndFilter * {
+  display: inline-block;
+}
+.titleAndFilter input,mat-icon,mat-form-field {
+  float: right;
+}
+button {
+  background-color: white;
+  border: none;
+}

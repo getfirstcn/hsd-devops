@@ -1,0 +1,76 @@
+<mat-card class="example-container mat-elevation-z8">
+  <div class="titleAndFilter">
+  <mat-card-title>状态复制集</mat-card-title>
+    <mat-form-field>
+  <input matInput type="text" (keyup)="applyFilter($event.target.value)" placeholder="过滤" [(ngModel)]="value">
+      <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value='';applyFilter(value)">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+  <mat-card-content>
+    <mat-table #table [dataSource]="dataSource">
+
+      <!--- Note that these columns can be defined in any order.
+            The actual rendered columns are set as a property on the row definition" -->
+
+      <!-- Position Column -->
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef> 名称 </mat-header-cell>
+        <mat-cell *matCellDef="let column">
+          <a [routerLink]="['/k8s/statefulsets',column.namespace,column.name]"> {{ column.name }} </a>
+        </mat-cell>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="namespace">
+        <mat-header-cell *matHeaderCellDef> 命名空间 </mat-header-cell>
+        <mat-cell *matCellDef="let column"> {{column.namespace}} </mat-cell>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="label">
+        <mat-header-cell *matHeaderCellDef> 标签 </mat-header-cell>
+        <mat-cell *matCellDef="let column">{{column.label | kv}}</mat-cell>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="pods">
+        <mat-header-cell *matHeaderCellDef> 容器组 </mat-header-cell>
+        <mat-cell *matCellDef="let column"><span>{{ column.pods.readyReplicas }}/{{ column.pods.replicas }}</span></mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="image">
+        <mat-header-cell *matHeaderCellDef> 镜像 </mat-header-cell>
+        <mat-cell *matCellDef="let column"><span *ngFor="let container of column.image">{{container.image}}</span> </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="createDate">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> 创建时间 </mat-header-cell>
+        <mat-cell *matCellDef="let column">
+          <span>{{column.Date | date: 'yyyy-MM-dd HH:mm:ss'}}</span>
+          <button class="deployment-icon-btn"><mat-icon aria-hidden="true">subject</mat-icon></button>
+          <button class="deployment-icon-btn" [matMenuTriggerFor]="deploymentDropDownMenu">
+            <mat-icon aria-hidden="true">more_vert</mat-icon>
+          </button>
+          <mat-menu #deploymentDropDownMenu="matMenu">
+            <button mat-menu-item (click)="deleteStatefulset(column.namespace, column.name)">
+              <mat-icon>chevron_left</mat-icon>
+              <span>删除</span>
+            </button>
+          </mat-menu>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let column; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </mat-card-content>
+  <mat-card-footer>
+    <mat-paginator #paginator
+                   [pageSize]="10"
+                   [pageSizeOptions]="[5, 10, 20]"
+                   [showFirstLastButtons]="true">
+    </mat-paginator>
+  </mat-card-footer>
+</mat-card>

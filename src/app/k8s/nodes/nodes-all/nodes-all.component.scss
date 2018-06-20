@@ -1,0 +1,20 @@
+mat-card {
+  margin: 20px;
+}
+.nodes-cell {
+  justify-content: space-between;
+}
+button {
+  border: white;
+  background-color: white;
+}
+.titleAndFilter input,mat-icon,mat-form-field {
+  float: right;
+
+}
+
+.titleAndFilter * {
+  display: inline-block;
+}
+
+

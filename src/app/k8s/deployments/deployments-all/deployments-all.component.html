@@ -1,47 +1,58 @@
 <mat-card class="main-container mat-elevation-z8">
+  <div class="titleAndFilter">
   <mat-card-title>部署</mat-card-title>
-  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+    <!--<mat-icon>filter_list</mat-icon>-->
+    <mat-form-field>
+    <input matInput type="text" (keyup)="applyFilter($event.target.value)" placeholder="过滤" [(ngModel)]="value">
+    <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value='';applyFilter(value)">
+      <mat-icon>close</mat-icon>
+    </button>
+    </mat-form-field>
+  </div>
   <mat-card-content>
-    <mat-table #table [dataSource]="dataSource">
+    <mat-table #table [dataSource]="dataSource" matSort>
 
       <!--- Note that these columns can be defined in any order.
             The actual rendered columns are set as a property on the row definition" -->
 
       <!-- Position Column -->
       <ng-container matColumnDef="name">
-        <mat-header-cell *matHeaderCellDef> 名称 </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header> 名称 </mat-header-cell>
         <mat-cell *matCellDef="let column">
-          <a [routerLink]="['/dashboard/deployment',column.metadata.namespace,column.metadata.name]"> {{ column.metadata.name }} </a>
+          <!--<a [routerLink]="['/dashboard/deployment',column.metadata.namespace,column.metadata.name]"> {{ column.metadata.name }} </a>-->
+          <a [routerLink]="['/k8s/deployments',column.namespace,column.name]"> {{ column.name }} </a>
         </mat-cell>
       </ng-container>
 
       <!-- Name Column -->
       <ng-container matColumnDef="namespace">
         <mat-header-cell *matHeaderCellDef> 命名空间 </mat-header-cell>
-        <mat-cell *matCellDef="let column"> {{column.metadata.namespace}} </mat-cell>
+        <!--<mat-cell *matCellDef="let column"> {{column.metadata.namespace}} </mat-cell>-->
+        <mat-cell *matCellDef="let column"> {{column.namespace}} </mat-cell>
       </ng-container>
 
       <!-- Weight Column -->
       <ng-container matColumnDef="label">
         <mat-header-cell *matHeaderCellDef> 标签 </mat-header-cell>
-        <mat-cell *matCellDef="let column">{{column.metadata.labels | kv}}</mat-cell>
+        <!--<mat-cell *matCellDef="let column">{{column.metadata.labels | kv}}</mat-cell>-->
+        <mat-cell *matCellDef="let column">{{column.label | kv}}</mat-cell>
       </ng-container>
 
       <!-- Symbol Column -->
       <ng-container matColumnDef="pods">
         <mat-header-cell *matHeaderCellDef> 容器组 </mat-header-cell>
-        <mat-cell *matCellDef="let column"><span *ngFor="let container of column.spec.template.spec.containers">{{container.name}}</span></mat-cell>
+        <mat-cell *matCellDef="let column"><span>{{column.pods.readyReplicas}}/{{column.pods.replicas}}</span></mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="image">
         <mat-header-cell *matHeaderCellDef> 镜像 </mat-header-cell>
-        <mat-cell *matCellDef="let column"><span *ngFor="let container of column.spec.template.spec.containers" class="deployments-image">{{container.image}}</span> </mat-cell>
+        <mat-cell *matCellDef="let column"><span *ngFor="let container of column.image" class="deployments-image">{{container.image}}</span> </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="createDate">
         <mat-header-cell *matHeaderCellDef mat-sort-header> 创建时间 </mat-header-cell>
         <mat-cell class="deployment-cell" *matCellDef="let column">
-          <span class="deployments-time">{{column.metadata.creationTimestamp | date: 'yyyy-MM-dd HH:mm:ss'}}</span>
+          <span class="deployments-time">{{column.createDate | date: 'yyyy-MM-dd HH:mm:ss'}}</span>
           <div>
           <button class="deployment-icon-btn" [matMenuTriggerFor]="deploymentDropDownMenu">
             <mat-icon aria-hidden="true">more_vert</mat-icon>
@@ -67,7 +78,8 @@
   </mat-card-content>
   <mat-card-footer>
     <mat-paginator #paginator
-                   [pageSize]="10"
+                   [length]="length"
+                   [pageSize]="5"
                    [pageSizeOptions]="[5, 10, 20]"
                    [showFirstLastButtons]="true">
     </mat-paginator>

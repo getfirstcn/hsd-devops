@@ -35,7 +35,7 @@ export class AppNavComponent implements OnInit, OnChanges {
   cluster = [
     {
       name: '命名空间',
-      route: '/k8s/namespace',
+      route: '/k8s/namespaces',
     },
     {
       name: '节点',
