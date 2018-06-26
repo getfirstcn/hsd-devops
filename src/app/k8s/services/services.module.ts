@@ -9,6 +9,7 @@ import {ServicesRoutingModule} from './services-routing.module';
 import {PodsModule} from '../pods/pods.module';
 import {MatPaginatorIntl} from '@angular/material';
 import {getDutchPaginatorIntl} from '../dutch-paginator.intl';
+import {AceEditorModule} from 'ng2-ace-editor';
 
 @NgModule({
   imports: [
@@ -16,9 +17,11 @@ import {getDutchPaginatorIntl} from '../dutch-paginator.intl';
     ServicesRoutingModule,
     PodsModule,
     MaterialModule,
-    K8sModule
+    K8sModule,
+    AceEditorModule
   ],
   declarations: [ServicesAllComponent, ServiceDetailComponent, ServiceReplaceComponent],
   providers: [{provide: MatPaginatorIntl,  useValue: getDutchPaginatorIntl()}],
+  entryComponents: [ServiceReplaceComponent]
 })
 export class ServicesModule { }

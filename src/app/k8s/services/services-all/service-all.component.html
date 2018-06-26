@@ -66,11 +66,11 @@
           <mat-icon aria-hidden="true">more_vert</mat-icon>
         </button>
         <mat-menu #serviceDropDownMenu="matMenu">
-          <button mat-menu-item (click)="deleteService(element.metadata.namespace,element.metadata.name)">
+          <button mat-menu-item (click)="deleteService(element.namespace,element.name)">
             <mat-icon>chevron_left</mat-icon>
             <span>删除</span>
           </button>
-          <button mat-menu-item (click)="replaceService(element.metadata.namespace,element.metadata.name)">
+          <button mat-menu-item (click)="replaceService(element.namespace,element.name)">
             <mat-icon>chevron_left</mat-icon>
             <span>修改</span>
           </button>

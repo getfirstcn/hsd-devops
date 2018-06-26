@@ -22,6 +22,7 @@ import {PodsModule} from '../pods/pods.module';
 import {getDutchPaginatorIntl} from '../dutch-paginator.intl';
 import {HttpClientModule} from '@angular/common/http';
 import {DeploymentReplaceComponent} from './deployment-replace/deployment-replace.component';
+import {AceEditorModule} from 'ng2-ace-editor';
 // import {CodeEditorModule} from '../../code-editor/code-editor.module';
 
 
@@ -45,7 +46,8 @@ import {DeploymentReplaceComponent} from './deployment-replace/deployment-replac
     MatDividerModule,
     MatListModule,
     PodsModule,
-    MatStepperModule
+    MatStepperModule,
+    AceEditorModule
   ],
   declarations: [
     DeploymentsAllComponent,

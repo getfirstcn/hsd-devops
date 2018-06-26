@@ -47,6 +47,14 @@ export class NodesAllComponent implements OnInit {
     filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
     this.dataSource.filter = filterValue;
   }
+  deleteNode(name) {
+    this.nodesService.deleteNode(name)
+      .subscribe(status => {
+        if (status.status === 'Success') {
+          this.initNodes();
+        }
+      });
+  }
 
 }
 export interface NodesItems {

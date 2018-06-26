@@ -14,11 +14,13 @@ import {
   MatDialogModule,
   MatGridListModule,
   MatInputModule,
-  MatFormFieldModule, MatDividerModule, MatListModule,
+  MatFormFieldModule, MatDividerModule, MatListModule, MatButtonModule
 } from '@angular/material';
 import {HttpClientModule} from '@angular/common/http';
 import {K8sModule} from '../k8s.module';
 import { PodsWithLabelComponent } from './pods-with-label/pods-with-label.component';
+import { PodLogComponent } from './pod-log/pod-log.component';
+import {AceEditorModule} from 'ng2-ace-editor';
 
 @NgModule({
   imports: [
@@ -38,9 +40,12 @@ import { PodsWithLabelComponent } from './pods-with-label/pods-with-label.compon
     FormsModule,
     MatDividerModule,
     MatListModule,
-    K8sModule
+    K8sModule,
+    AceEditorModule,
+    MatButtonModule
   ],
-  declarations: [PodsAllComponent, PodsDetailComponent, PodsWithLabelComponent],
-  exports: [PodsWithLabelComponent]
+  declarations: [PodsAllComponent, PodsDetailComponent, PodsWithLabelComponent, PodLogComponent],
+  exports: [PodsWithLabelComponent],
+  entryComponents: [PodLogComponent]
 })
 export class PodsModule { }

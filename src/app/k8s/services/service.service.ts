@@ -25,7 +25,9 @@ export class ServiceService {
   deleteService(namespace: string, name: string): Observable<V1Status> {
     return this.http.delete<V1Status>(`/api/v1/namespaces/${namespace}/services/${name}`);
   }
-  replaceService(namespace: string, name: string, body: V1Service): Observable<V1Service> {
-    return this.http.put<V1Service>(`/api/v1/namespaces/${namespace}/Services/${name}`, body);
+  replaceService(body: V1Service): Observable<V1Service> {
+    const namespace = body.metadata.namespace;
+    const name = body.metadata.name;
+    return this.http.put<V1Service>(`/api/v1/namespaces/${namespace}/services/${name}`, body);
   }
 }

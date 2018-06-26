@@ -1,0 +1,46 @@
+<mat-horizontal-stepper [linear]=false #stepper>
+  <mat-step>
+    <ng-template matStepLabel>第一步应用</ng-template>
+    <div ace-editor
+         [(text)]="deployment"
+         [mode]="'log'"
+         [theme]="'eclipse'"
+         [options]="options"
+         [readOnly]="false"
+         [autoUpdateContent]="true"
+         [durationBeforeCallback]="1000"
+         style="min-height: 200px; width:100%; overflow: auto;"
+    ></div>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>第二部服务</ng-template>
+    <div ace-editor
+         [(text)]="service"
+         [mode]="'log'"
+         [theme]="'eclipse'"
+         [options]="options"
+         [readOnly]="false"
+         [autoUpdateContent]="true"
+         [durationBeforeCallback]="1000"
+         style="min-height: 200px; width:100%; overflow: auto;"
+    ></div>
+
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>第三步网关</ng-template>
+    <div ace-editor
+         [(text)]="ingress"
+         [mode]="'log'"
+         [theme]="'eclipse'"
+         [options]="options"
+         [readOnly]="false"
+         [autoUpdateContent]="true"
+         [durationBeforeCallback]="1000"
+         style="min-height: 200px; width:100%; overflow: auto;"
+    ></div>
+  </mat-step>
+</mat-horizontal-stepper>
+<div mat-dialog-actions class="button-yaml">
+  <button mat-button color="warn" class="button-cancel" mat-dialog-close>取消</button>
+  <button mat-button color="primary" (click)="create()" class="button-commit" [mat-dialog-close]="true" cdkFocusInitial>确定</button>
+</div>

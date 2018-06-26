@@ -8,6 +8,7 @@ import {K8sModule} from '../k8s.module';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {MaterialModule} from '../material.module';
+import {AceEditorModule} from 'ng2-ace-editor';
 
 @NgModule({
   imports: [
@@ -16,8 +17,10 @@ import {MaterialModule} from '../material.module';
     K8sModule,
     FormsModule,
     HttpClientModule,
-    MaterialModule
+    MaterialModule,
+    AceEditorModule
   ],
-  declarations: [IngressesAllComponent, IngressesDetailComponent, IngressesReplaceComponent]
+  declarations: [IngressesAllComponent, IngressesDetailComponent, IngressesReplaceComponent],
+  entryComponents: [IngressesReplaceComponent]
 })
 export class IngressesModule { }

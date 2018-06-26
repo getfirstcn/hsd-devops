@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {V1Node, V1NodeList} from '../api';
+import {V1Node, V1NodeList, V1Status} from '../api';
 
 @Injectable({
   providedIn: 'root'
@@ -16,5 +16,8 @@ export class NodesService {
   }
   readenodes(name: string): Observable<V1Node> {
     return this.http.get<V1Node>(`/api/v1/nodes/${name}`);
+  }
+  deleteNode(name: string) {
+    return this.http.delete<V1Status>(`/api/v1/nodes/{name}`);
   }
 }

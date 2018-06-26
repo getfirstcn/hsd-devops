@@ -1,3 +1,14 @@
-<p>
-  ingresses-replace works!
-</p>
+<div ace-editor
+     [(text)]="text"
+     [mode]="'log'"
+     [theme]="'eclipse'"
+     [options]="options"
+     [readOnly]="false"
+     [autoUpdateContent]="true"
+     [durationBeforeCallback]="1000"
+     style="min-height: 200px; width:100%; overflow: auto;"
+></div>
+<div mat-dialog-actions>
+  <button mat-button mat-raised-button (click)="onClick()">确定</button>
+  <button mat-button mat-raised-button color="primary" mat-dialog-close cdkFocusInitial>关闭</button>
+</div>

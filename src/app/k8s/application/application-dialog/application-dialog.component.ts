@@ -15,6 +15,7 @@ import {
   V1PodTemplateSpec,
   V1Service, V1ServicePort, V1ServiceSpec
 } from '../../api';
+import {ApplicationYamlComponent} from '../application-yaml/application-yaml.component';
 
 @Component({
   selector: 'app-application-dialog',
@@ -292,14 +293,14 @@ export class ApplicationDialogComponent implements OnInit {
         console.log('创建入口', resp);
       });
   }
-  // openYamlDialog() {
-  //   const dialogRef = this.dialog.open(ApplicationYamlComponent, {
-  //     height: '900px',
-  //     width: '1400px'
-  //   });
-  //
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     console.log(`会话框状态：${result}`);
-  //   });
-  // }
+  openYamlDialog() {
+    const dialogRef = this.dialog.open(ApplicationYamlComponent, {
+      height: '900px',
+      width: '1400px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`会话框状态：${result}`);
+    });
+  }
 }

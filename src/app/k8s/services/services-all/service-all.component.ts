@@ -1,8 +1,9 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {ServiceService} from '../service.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {MatPaginator, MatTableDataSource} from '@angular/material';
+import {MatDialog, MatPaginator, MatTableDataSource} from '@angular/material';
 import {V1beta2DeploymentStatus, V1Container, V1Service, V1ServicePort} from '../../api';
+import {ServiceReplaceComponent} from '../service-replace/service-replace.component';
 
 @Component({
   selector: 'app-service-all',
@@ -21,6 +22,7 @@ export class ServicesAllComponent implements OnInit, AfterViewInit {
     private serviceService: ServiceService,
     private router: Router,
     private route: ActivatedRoute,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -74,6 +76,14 @@ export class ServicesAllComponent implements OnInit, AfterViewInit {
     this.serviceService.readeServices(namespace, name)
       .subscribe(resp => {
         console.log(resp);
+        const dialogRef = this.dialog.open(ServiceReplaceComponent, {
+          height: 'calc(90vh)',
+          width: 'calc(100vw)',
+          data: resp
+        });
+        dialogRef.afterClosed().subscribe(result => {
+          console.log(`dialog result: $(result)`);
+        });
       });
   }
   applyFilter(filterValue: string) {

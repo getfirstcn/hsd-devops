@@ -1,8 +1,9 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {MatPaginator, MatTableDataSource} from '@angular/material';
+import {MatDialog, MatPaginator, MatTableDataSource} from '@angular/material';
 import {IngressesService} from '../ingresses.service';
 import {ActivatedRoute} from '@angular/router';
 import {V1beta1Ingress, V1beta1IngressRule, V1beta2DeploymentStatus, V1Container} from '../../api';
+import {IngressesReplaceComponent} from '../ingresses-replace/ingresses-replace.component';
 
 
 @Component({
@@ -20,7 +21,8 @@ export class IngressesAllComponent implements OnInit, AfterViewInit {
 
   constructor(
     private ingressesService: IngressesService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -62,6 +64,25 @@ export class IngressesAllComponent implements OnInit, AfterViewInit {
       columns.push(column);
     }
     return columns;
+  }
+  deleteIngress(namespace: string, name: string) {
+    this.ingressesService.deleteIngress(namespace, name)
+      .subscribe(status => {
+        if (status.status === 'Success') {
+          this.initIngresses();
+        }
+      });
+  }
+  replaceIngress(namespace, name) {
+    this.ingressesService.readeIngress(namespace, name)
+      .subscribe(service => {
+        const dialogRef = this.dialog.open(IngressesReplaceComponent, {
+          width: 'calc(90vh)',
+          height: 'calc(100vw)',
+          data: service
+        });
+      });
+    return true;
   }
 
   applyFilter(filterValue: string) {

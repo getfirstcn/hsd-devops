@@ -19,6 +19,8 @@ import {FormsModule} from '@angular/forms';
 import {K8sModule} from '../k8s.module';
 import {HttpClientModule} from '@angular/common/http';
 import {ReactiveFormsModule} from '@angular/forms';
+import { ApplicationYamlComponent } from './application-yaml/application-yaml.component';
+import {AceEditorModule} from 'ng2-ace-editor';
 
 @NgModule({
   imports: [
@@ -40,10 +42,11 @@ import {ReactiveFormsModule} from '@angular/forms';
     MatButtonModule,
     ReactiveFormsModule,
     MatStepperModule,
-    MatSelectModule
+    MatSelectModule,
+    AceEditorModule
   ],
-  declarations: [ApplicationButtonComponent, ApplicationDialogComponent, ApplicationComponent],
+  declarations: [ApplicationButtonComponent, ApplicationDialogComponent, ApplicationComponent, ApplicationYamlComponent],
   exports: [ApplicationButtonComponent],
-  entryComponents: [ApplicationDialogComponent]
+  entryComponents: [ApplicationDialogComponent, ApplicationYamlComponent]
 })
 export class ApplicationModule { }

@@ -23,7 +23,10 @@
     "@angular/platform-browser-dynamic": "^6.0.2",
     "@angular/router": "^6.0.2",
     "core-js": "^2.5.4",
+    "i": "^0.3.6",
+    "js-yaml": "^3.12.0",
     "ng-code-editor": "^1.0.1",
+    "ng2-ace-editor": "^0.3.8",
     "ngx-monaco-editor": "^6.0.0",
     "rxjs": "^6.0.0",
     "zone.js": "^0.8.26"

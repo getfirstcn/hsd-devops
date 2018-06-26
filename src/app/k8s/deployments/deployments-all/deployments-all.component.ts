@@ -109,6 +109,7 @@ export class DeploymentsAllComponent implements OnInit, AfterViewInit {
   replaceDeployment(namespace: string, name: string) {
     this.deploymentsService.readeDeployment(namespace, name)
       .subscribe(resp => {
+        console.log('tostring', JSON.stringify(resp));
         const dialogRef = this.dialog.open(DeploymentReplaceComponent, {
           height: 'calc(90vh)',
           width: 'calc(100vw - 100px)',
